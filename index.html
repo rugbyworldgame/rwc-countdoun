@@ -9,8 +9,6 @@
     :root {
         --text-main: #dfe8ff;
         --text-sub: rgba(223,232,255,0.55);
-        --text-muted: rgba(223,232,255,0.75);
-        --text-heading: rgba(223,232,255,0.88);
     }
 
     body {
@@ -20,7 +18,7 @@
         justify-content: flex-start;
         align-items: center;
         flex-direction: column;
-        background: radial-gradient(circle, #001a33, #000814);
+        background: #000814;
         color: var(--text-main);
         font-family: Arial, sans-serif;
         text-align: center;
@@ -29,8 +27,29 @@
         overflow: hidden;
     }
 
-    /* ПРОЖЕКТОР СВЕРХУ */
+    /* 🔥 ПРЕМИАЛЬНОЕ ДВИЖЕНИЕ ФОНА */
     body::before {
+        content: "";
+        position: fixed;
+        inset: -40%;
+        background:
+            radial-gradient(circle at 20% 120%, rgba(0, 110, 255, 0.32) 0, transparent 60%),
+            radial-gradient(circle at 80% -20%, rgba(0, 180, 255, 0.28) 0, transparent 60%),
+            radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07), transparent 65%);
+        mix-blend-mode: screen;
+        opacity: 0.33;
+        animation: bgMove 28s ease-in-out infinite alternate;
+        z-index: -2;
+        pointer-events: none;
+    }
+
+    @keyframes bgMove {
+        0%   { transform: translate3d(0, 0, 0); }
+        100% { transform: translate3d(0, -3%, 0); }
+    }
+
+    /* 💡 ПРОЖЕКТОР СВЕРХУ */
+    body::after {
         content: "";
         position: fixed;
         left: 50%;
@@ -44,88 +63,89 @@
             rgba(255, 255, 255, 0.06) 30%,
             rgba(0, 0, 0, 0) 75%
         );
-        opacity: 0.58;
+        opacity: 0.55;
         pointer-events: none;
         mix-blend-mode: screen;
         z-index: -1;
     }
 
-    /* ЛЁГКОЕ ДВИЖЕНИЕ ГРАДИЕНТА */
-    body::after {
-        content: "";
-        position: fixed;
-        inset: -30%;
-        background:
-            radial-gradient(circle at 20% 120%, rgba(0, 90, 180, 0.40) 0, transparent 60%),
-            radial-gradient(circle at 80% -20%, rgba(0, 200, 255, 0.28) 0, transparent 60%);
-        opacity: 0.28;
-        mix-blend-mode: soft-light;
-        pointer-events: none;
-        animation: gradientMove 22s ease-in-out infinite alternate;
-        z-index: -1;
-    }
-
-    @keyframes gradientMove {
-        0%   { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(0, -3%, 0); }
-    }
-
+    /* ==========================
+       ЛОГОТИП
+    ========================== */
     .logo {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 18px;
+        margin-bottom: 22px;
     }
 
     .logo svg {
-        width: 75px;
+        width: 82px;
         height: auto;
     }
 
     .logo-caption {
-        font-size: 0.72rem;
+        font-size: 0.75rem;
         letter-spacing: 0.32em;
         text-transform: uppercase;
         color: var(--text-sub);
         margin-top: 6px;
+        line-height: 1.2;
     }
 
-    .logo-subcaption {
-        font-size: 0.64rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: rgba(223,232,255,0.40);
-        margin-top: 2px;
-    }
-
+    /* ==========================
+       ЗАГОЛОВОК
+    ========================== */
     h1 {
-        font-size: clamp(1.1rem, 3.3vw, 1.55rem);
-        margin-bottom: 18px;
+        font-size: clamp(1.2rem, 3.4vw, 1.65rem);
+        margin-bottom: 14px;
         font-weight: 600;
-        color: var(--text-heading);
-        text-shadow: 0 0 6px rgba(0,0,0,0.4);
+        color: rgba(223,232,255,0.85);
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
-    #timer {
-        font-size: clamp(2.5rem, 6.3vw, 3.6rem);
+    /* ==========================
+       ДВУХСТРОЧНЫЙ ТАЙМЕР
+    ========================== */
+    .timer-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .timer-line {
+        font-size: clamp(2.1rem, 6vw, 3rem);
         font-weight: 500;
-        letter-spacing: 1px;
-        text-shadow:
-            0 0 12px rgba(0,0,0,0.65),
-            0 0 22px rgba(0,0,0,0.35);
-        margin-bottom: 14px;
+        text-shadow: 0 0 10px rgba(0,0,0,0.6);
+        color: var(--text-main);
+        line-height: 1.2;
+    }
+
+    #timer-line1 {
+        margin-bottom: 4px;
     }
 
     .subtitle {
-        font-size: clamp(0.75rem, 2vw, 0.87rem);
-        opacity: 0.45;
-        margin-top: 2px;
+        font-size: clamp(0.78rem, 2vw, 0.9rem);
+        opacity: 0.55;
+        margin-top: 4px;
+    }
+
+    @media (max-width: 480px) {
+        .timer-line {
+            font-size: 2.45rem;
+        }
+        body {
+            padding-top: 9vh;
+        }
     }
 </style>
 
 </head>
 <body>
 
+<!-- LOGO -->
 <div class="logo">
     <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -143,58 +163,64 @@
             </filter>
         </defs>
 
-        <g stroke="#dfe8ff" stroke-width="1.7" fill="none" filter="url(#cup-glow)">
-            <path d="M32 28 Q30 55 42 78" stroke-linecap="round"/>
-            <path d="M68 28 Q70 55 58 78" stroke-linecap="round"/>
-            <path d="M32 28 Q50 16 68 28" stroke-linecap="round"/>
-            <path d="M45 82 Q50 86 55 82" stroke-linecap="round"/>
-            <path d="M40 90 H60" stroke-linecap="round"/>
+        <g stroke="#dfe8ff" stroke-width="1.6" fill="none" filter="url(#cup-glow)">
+            <path d="M32 30 Q28 58 42 82" stroke-linecap="round"/>
+            <path d="M68 30 Q72 58 58 82" stroke-linecap="round"/>
+            <path d="M32 30 Q50 16 68 30" stroke-linecap="round"/>
+            <path d="M45 86 Q50 90 55 86" stroke-linecap="round"/>
+            <path d="M40 94 H60" stroke-linecap="round"/>
         </g>
 
-        <path d="M30 98 Q50 104 70 98"
+        <path d="M28 102 Q50 110 72 102"
               stroke="#dfe8ff"
-              stroke-width="1.2"
+              stroke-width="1.1"
               stroke-linecap="round"
               fill="none"
-              opacity="0.78"
+              opacity="0.8"
               filter="url(#cup-glow)"/>
     </svg>
 
-    <div class="logo-caption">RWC&nbsp;2027</div>
-    <div class="logo-subcaption">Australia&nbsp;2027</div>
+    <div class="logo-caption">
+        RWC 2027<br>AUSTRALIA 2027
+    </div>
 </div>
 
-<div>
-    <h1>До Кубка Мира по Регби осталось:</h1>
-    <div id="timer"></div>
-    <div class="subtitle">Rugby World Cup 2027 starts in:</div>
+<!-- TEXT + TIMER -->
+<h1>До Кубка Мира по Регби осталось:</h1>
+
+<div class="timer-block">
+    <div id="timer-line1" class="timer-line"></div>
+    <div id="timer-line2" class="timer-line"></div>
 </div>
+
+<div class="subtitle">Rugby World Cup 2027 starts in:</div>
 
 <script>
-    function updateTimer() {
-        const target = new Date("2027-10-01T00:00:00").getTime();
-        const now = Date.now();
-        const diff = target - now;
+function updateTimer() {
+    const target = new Date("2027-10-01T00:00:00").getTime();
+    const now = Date.now();
+    const diff = target - now;
 
-        if (diff <= 0) {
-            document.getElementById("timer").innerHTML = "Старт!";
-            return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((diff / (1000 * 60)) % 60);
-        const seconds = Math.floor((diff / 1000) % 60);
-
-        document.getElementById("timer").innerHTML =
-            days + " дн · " +
-            hours.toString().padStart(2, "0") + " ч · " +
-            minutes.toString().padStart(2, "0") + " мин · " +
-            seconds.toString().padStart(2, "0") + " сек";
+    if (diff <= 0) {
+        document.getElementById("timer-line1").innerHTML = "Старт!";
+        document.getElementById("timer-line2").innerHTML = "";
+        return;
     }
 
-    setInterval(updateTimer, 1000);
-    updateTimer();
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timer-line1").innerHTML =
+        `${days} дн · ${hours.toString().padStart(2, "0")} ч`;
+
+    document.getElementById("timer-line2").innerHTML =
+        `${minutes.toString().padStart(2, "0")} мин · ${seconds.toString().padStart(2, "0")} сек`;
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
 </script>
 
 </body>
