@@ -10,7 +10,7 @@
         --text-main: #dfe8ff;
         --text-sub: rgba(223,232,255,0.55);
         --text-muted: rgba(223,232,255,0.75);
-        --text-heading: rgba(223,232,255,0.88); /* приглушённый заголовок */
+        --text-heading: rgba(223,232,255,0.88);
     }
 
     body {
@@ -26,38 +26,38 @@
         text-align: center;
         padding-top: 6vh;
         position: relative;
-        overflow: hidden; /* чтобы анимация фона не вылезала за края */
+        overflow: hidden;
     }
 
     /* ПРОЖЕКТОР СВЕРХУ */
     body::before {
         content: "";
         position: fixed;
-        inset: -25% -15% auto -15%;
-        height: 60%;
-        background:
-            radial-gradient(ellipse at top,
-                rgba(255, 255, 255, 0.16) 0%,
-                rgba(255, 255, 255, 0.04) 35%,
-                rgba(0, 0, 0, 0) 70%);
-        opacity: 0.65;
+        left: 50%;
+        top: -22%;
+        transform: translateX(-50%);
+        width: 180%;
+        height: 70%;
+        background: radial-gradient(
+            ellipse at top,
+            rgba(255, 255, 255, 0.24) 0%,
+            rgba(255, 255, 255, 0.06) 30%,
+            rgba(0, 0, 0, 0) 75%
+        );
+        opacity: 0.58;
         pointer-events: none;
         mix-blend-mode: screen;
         z-index: -1;
     }
 
-    /* ЛЁГКОЕ ДВИЖЕНИЕ ПРЕМИУМ-ГРАДИЕНТА */
+    /* ЛЁГКОЕ ДВИЖЕНИЕ ГРАДИЕНТА */
     body::after {
         content: "";
         position: fixed;
         inset: -30%;
         background:
-            radial-gradient(circle at 20% 120%,
-                rgba(0, 90, 180, 0.40) 0,
-                transparent 60%),
-            radial-gradient(circle at 80% -20%,
-                rgba(0, 200, 255, 0.28) 0,
-                transparent 60%);
+            radial-gradient(circle at 20% 120%, rgba(0, 90, 180, 0.40) 0, transparent 60%),
+            radial-gradient(circle at 80% -20%, rgba(0, 200, 255, 0.28) 0, transparent 60%);
         opacity: 0.28;
         mix-blend-mode: soft-light;
         pointer-events: none;
@@ -75,7 +75,6 @@
         flex-direction: column;
         align-items: center;
         margin-bottom: 18px;
-        user-select: none;
     }
 
     .logo svg {
@@ -127,7 +126,6 @@
 </head>
 <body>
 
-<!-- ЛОГОТИП -->
 <div class="logo">
     <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -166,7 +164,6 @@
     <div class="logo-subcaption">Australia&nbsp;2027</div>
 </div>
 
-<!-- ОСНОВНОЙ БЛОК -->
 <div>
     <h1>До Кубка Мира по Регби осталось:</h1>
     <div id="timer"></div>
@@ -202,3 +199,4 @@
 
 </body>
 </html>
+
