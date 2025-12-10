@@ -9,6 +9,8 @@
     :root {
         --text-main: #dfe8ff;
         --text-sub: rgba(223,232,255,0.55);
+        --px: 0;
+        --py: 0;
     }
 
     body {
@@ -41,14 +43,15 @@
             radial-gradient(circle at 50% 0%, rgba(255,255,255,0.07), transparent 65%);
         mix-blend-mode: screen;
         opacity: 0.33;
+        transform: translate3d(var(--px), var(--py), 0);
         animation: bgMove 28s ease-in-out infinite alternate;
         z-index: -3;
         pointer-events: none;
     }
 
     @keyframes bgMove {
-        0%   { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(0, -3%, 0); }
+        0%   { transform: translate3d(var(--px), var(--py), 0); }
+        100% { transform: translate3d(var(--px), calc(var(--py) - 3%), 0); }
     }
 
     /* ===============================
@@ -83,19 +86,20 @@
         position: fixed;
         inset: -10% -20% 40%;
         background:
-            radial-gradient(circle at 50% 0%, rgba(255,255,255,0.10) 0, transparent 55%),
-            radial-gradient(circle at 30% 10%, rgba(255,255,255,0.05) 0, transparent 50%);
+            radial-gradient(circle at 50% 0%, rgba(255,255,255,0.12) 0, transparent 55%),
+            radial-gradient(circle at 30% 10%, rgba(255,255,255,0.06) 0, transparent 50%);
         opacity: 0.35;
         filter: blur(4px);
         mix-blend-mode: screen;
         z-index: -1;
         pointer-events: none;
+        transform: translate3d(var(--px), var(--py), 0);
         animation: mistDrift 32s ease-in-out infinite alternate;
     }
 
     @keyframes mistDrift {
-        0%   { transform: translate3d(0, 0, 0); }
-        100% { transform: translate3d(0, 4%, 0); }
+        0%   { transform: translate3d(var(--px), var(--py), 0); }
+        100% { transform: translate3d(var(--px), calc(var(--py) + 4%), 0); }
     }
 
     /* ===============================
@@ -112,12 +116,19 @@
         mix-blend-mode: screen;
         z-index: -1;
         pointer-events: none;
+        transform: translate3d(var(--px), var(--py), 0);
         animation: particlesFloat 40s linear infinite;
     }
 
     @keyframes particlesFloat {
-        0%   { transform: translate3d(0,0,0); background-position: 0 0; }
-        100% { transform: translate3d(0,-4%,0); background-position: 120px 160px; }
+        0%   {
+            transform: translate3d(var(--px), var(--py), 0);
+            background-position: 0 0;
+        }
+        100% {
+            transform: translate3d(var(--px), calc(var(--py) - 4%), 0);
+            background-position: 120px 160px;
+        }
     }
 
     /* ===============================
@@ -146,7 +157,7 @@
     }
 
     /* ===============================
-       TEXT / HEADER
+       HEADER
        =============================== */
 
     h1 {
@@ -158,7 +169,7 @@
     }
 
     /* ===============================
-       TIMER (TWO LINES)
+       TWO-LINE TIMER
        =============================== */
 
     .timer-block {
@@ -199,7 +210,7 @@
 </head>
 <body>
 
-<!-- CINEMATIC FX LAYERS -->
+<!-- FX LAYERS -->
 <div class="fx-mist"></div>
 <div class="fx-particles"></div>
 
@@ -280,6 +291,33 @@ function updateTimer() {
 
 setInterval(updateTimer, 1000);
 updateTimer();
+</script>
+
+<script>
+/* ---------- PARALLAX FX ----------- */
+
+const root = document.documentElement;
+
+function applyParallax(x, y) {
+    root.style.setProperty('--px', x + 'px');
+    root.style.setProperty('--py', y + 'px');
+}
+
+const strength = 4;
+
+/* Телефоны — гироскоп */
+window.addEventListener('deviceorientation', (e) => {
+    const x = (e.gamma || 0) / 45;
+    const y = (e.beta  || 0) / 45;
+    applyParallax(x * strength, y * strength);
+});
+
+/* ПК — мышь */
+window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth  - 0.5) * 2;
+    const y = (e.clientY / window.innerHeight - 0.5) * 2;
+    applyParallax(x * strength, y * strength);
+});
 </script>
 
 </body>
