@@ -7,15 +7,15 @@
 
 <style>
     :root {
-        --text-main: #dfe8ff; /* мягкий серебристый */
-        --text-sub:  rgba(223,232,255,0.55);
+        --text-main: #dfe8ff;
+        --text-sub: rgba(223,232,255,0.55);
     }
 
     body {
         margin: 0;
         height: 100vh;
         display: flex;
-        justify-content: flex-start;   /* блок чуть выше центра */
+        justify-content: flex-start;
         align-items: center;
         flex-direction: column;
         background: radial-gradient(circle, #001a33, #000814);
@@ -23,22 +23,17 @@
         font-family: Arial, sans-serif;
         text-align: center;
         padding-top: 7vh;
-        padding-left: 16px;
-        padding-right: 16px;
-        box-sizing: border-box;
     }
 
     .logo {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 6px;
-        margin-bottom: 20px;
+        margin-bottom: 22px;
     }
 
     .logo svg {
         width: 82px;
-        max-width: 22vw;
         height: auto;
     }
 
@@ -47,6 +42,7 @@
         letter-spacing: 0.32em;
         text-transform: uppercase;
         color: var(--text-sub);
+        margin-top: 6px;
     }
 
     h1 {
@@ -61,7 +57,6 @@
         font-weight: 500;
         letter-spacing: 1px;
         text-shadow: 0 0 10px rgba(0,0,0,0.6);
-        line-height: 1.22;
         margin-bottom: 12px;
     }
 
@@ -70,33 +65,15 @@
         opacity: 0.55;
         margin-top: 4px;
     }
-
-    @media (max-width: 480px) {
-        body {
-            padding-top: 10vh;
-        }
-        #timer {
-            font-size: 2.55rem;
-            letter-spacing: 0.8px;
-        }
-        .logo svg {
-            width: 70px;
-        }
-        .logo-caption {
-            font-size: 0.7rem;
-            letter-spacing: 0.26em;
-        }
-    }
 </style>
 
 </head>
 <body>
 
+<!-- ЛОГОТИП -->
 <div class="logo">
-    <!-- Минималистичный SVG-логотип RWC 2027 с мягким glow -->
-    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
-            <!-- мягкое свечение вокруг линий -->
             <filter id="cup-glow" x="-50%" y="-50%" width="200%" height="200%">
                 <feGaussianBlur stdDeviation="2" result="blur"/>
                 <feColorMatrix in="blur" type="matrix"
@@ -111,23 +88,59 @@
             </filter>
         </defs>
 
-        <!-- контур чаши: супер-минимализм 2-3 линиями -->
-        <g stroke="#dfe8ff" stroke-width="1.4" fill="none" filter="url(#cup-glow)">
-            <!-- боковые линии -->
+        <g stroke="#dfe8ff" stroke-width="1.5" fill="none" filter="url(#cup-glow)">
             <path d="M30 25 Q28 55 40 78" stroke-linecap="round"/>
             <path d="M70 25 Q72 55 60 78" stroke-linecap="round"/>
-
-            <!-- верхняя линия "крышки" -->
             <path d="M30 25 Q50 12 70 25" stroke-linecap="round"/>
-
-            <!-- "ножка" -->
             <path d="M45 80 Q50 84 55 80" stroke-linecap="round"/>
             <path d="M40 88 H60" stroke-linecap="round"/>
         </g>
 
-        <!-- дуга-намёк на мяч под кубком -->
         <path d="M28 96 Q50 104 72 96"
               stroke="#dfe8ff"
               stroke-width="1"
               stroke-linecap="round"
               fill="none"
+              opacity="0.8"
+              filter="url(#cup-glow)"/>
+    </svg>
+
+    <div class="logo-caption">RWC&nbsp;2027</div>
+</div>
+
+<!-- ОСНОВНОЙ БЛОК -->
+<div>
+    <h1>До Кубка Мира по Регби осталось:</h1>
+    <div id="timer"></div>
+    <div class="subtitle">Rugby World Cup 2027 starts in:</div>
+</div>
+
+<script>
+    function updateTimer() {
+        const target = new Date("2027-10-01T00:00:00").getTime();
+        const now = Date.now();
+        const diff = target - now;
+
+        if (diff <= 0) {
+            document.getElementById("timer").innerHTML = "Старт!";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("timer").innerHTML =
+            days + " дн · " +
+            hours.toString().padStart(2, "0") + " ч · " +
+            minutes.toString().padStart(2, "0") + " мин · " +
+            seconds.toString().padStart(2, "0") + " сек";
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+</script>
+
+</body>
+</html>
