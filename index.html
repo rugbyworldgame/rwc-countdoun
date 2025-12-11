@@ -13,66 +13,69 @@
         --accent-soft: #8FAFE6;
     }
 
+    /* ================================
+       GLOBAL LAYOUT
+    ================================ */
+
     body {
         margin: 0;
         height: auto;
         display: flex;
-        justify-content: flex-start;
-        align-items: center;
         flex-direction: column;
-        background: radial-gradient(circle at 50% 0%, #102746 0%, #000814 55%, #00040a 100%);
-        color: var(--text-main);
+        align-items: center;
+        justify-content: flex-start;
+
         font-family: Arial, sans-serif;
         text-align: center;
+        color: var(--text-main);
         padding-top: 7vh;
-        position: relative;
         overflow-x: hidden;
+
+        /* Чистый симметричный фон */
+        background: radial-gradient(circle at 50% 0%,
+            #1a2f4d 0%,
+            #091626 55%,
+            #04080f 100%);
+        position: relative;
     }
 
-  /* ---------- MINIMAL CLEAN BACKGROUND (Variant B) ---------- */
+    /* Верхнее мягкое свечение строго по центру */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 0%,
+            rgba(255,255,255,0.16) 0%,
+            rgba(255,255,255,0.05) 22%,
+            rgba(0,0,0,0) 70%);
+        opacity: 0.55;
+        pointer-events: none;
+        z-index: -1;
+        animation: bgBreath 22s ease-in-out infinite alternate;
+    }
 
-body {
-    background: radial-gradient(circle at 50% 0%,
-        #1a2f4d 0%,
-        #091626 55%,
-        #04080f 100%);
-    position: relative;
-}
+    /* Дополнительное мягкое свечение */
+    body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle at 50% 35%,
+            rgba(120,160,255,0.12),
+            rgba(0,0,0,0));
+        opacity: 0.35;
+        pointer-events: none;
+        z-index: -1;
+    }
 
-/* Верхнее мягкое свечение строго по центру */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at 50% 0%,
-        rgba(255, 255, 255, 0.16) 0%,
-        rgba(255, 255, 255, 0.05) 22%,
-        rgba(0, 0, 0, 0) 70%);
-    opacity: 0.55;
-    pointer-events: none;
-    z-index: -1;
-    animation: bgBreath 22s ease-in-out infinite alternate;
-}
+    @keyframes bgBreath {
+        from { opacity: 0.45; }
+        to   { opacity: 0.65; }
+    }
 
-/* Лёгкий общий soft-glow без смещения */
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at 50% 35%,
-        rgba(120, 160, 255, 0.12),
-        rgba(0, 0, 0, 0));
-    opacity: 0.35;
-    pointer-events: none;
-    z-index: -1;
-}
+    /* ================================
+       LOGO
+    ================================ */
 
-@keyframes bgBreath {
-    from { opacity: 0.45; }
-    to   { opacity: 0.65; }
-}
-
-    /* ---------- LOGO ---------- */
     .logo {
         display: flex;
         flex-direction: column;
@@ -83,18 +86,23 @@ body::after {
     .logo svg {
         width: 82px;
         height: auto;
+        display: block;
+        margin: 0 auto;
     }
 
     .logo-caption {
+        margin-top: 6px;
         font-size: 0.75rem;
+        color: var(--text-sub);
         letter-spacing: 0.32em;
         text-transform: uppercase;
-        color: var(--text-sub);
-        margin-top: 6px;
         line-height: 1.2;
     }
 
-    /* ---------- TIMER ---------- */
+    /* ================================
+       TIMER
+    ================================ */
+
     h1 {
         font-size: clamp(1.2rem, 3.4vw, 1.65rem);
         margin-bottom: 14px;
@@ -113,90 +121,76 @@ body::after {
     .timer-line {
         font-size: clamp(2.1rem, 6vw, 3rem);
         font-weight: 500;
-        text-shadow: 0 0 10px rgba(0,0,0,0.6);
-        color: var(--text-main);
         line-height: 1.2;
+        text-shadow: 0 0 10px rgba(0,0,0,0.65);
     }
 
     #timer-line1 { margin-bottom: 4px; }
 
     .subtitle {
+        margin-top: 4px;
         font-size: clamp(0.78rem, 2vw, 0.9rem);
         opacity: 0.55;
-        margin-top: 4px;
     }
 
-     /* ---------- GROUPS SECTION (fixed center + safe wide cards) ---------- */
+    /* ================================
+       GROUPS SECTION
+    ================================ */
 
-.groups-section {
-    margin-top: 52px;
-    padding: 0 16px 56px;
-    max-width: 1200px;     /* увеличено с 1100 */
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;    /* центрируем жёстко */
-}
-
-/* DESKTOP — 3 columns */
-.groups-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 26px 32px;
-
-    justify-items: center;   /* ВСЕ карточки строго по центру */
-    align-items: start;
-}
-
-/* TABLET — 2 columns */
-@media (max-width: 960px) {
-    .groups-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .groups-section {
+        margin-top: 52px;
+        padding: 0 16px 56px;
+        max-width: 1200px;
+        width: 100%;
     }
-}
 
-/* MOBILE — 1 column */
-@media (max-width: 640px) {
+    /* Desktop grid */
     .groups-grid {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 26px 32px;
         justify-items: center;
     }
-}
 
-    /* GRID — mobile 1 column + FULL CENTER */
-    @media (max-width: 640px) {
+    /* Tablet */
+    @media (max-width: 960px) {
         .groups-grid {
-            grid-template-columns: 1fr;
-            text-align: center;
-            justify-items: center;
-            align-items: center;
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 
-    /* GROUP CARD — базовая (desktop / tablet) */
+    /* Mobile */
+    @media (max-width: 640px) {
+        .groups-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* ================================
+       GROUP CARD
+    ================================ */
+
     .group-card {
-        width: 88%;                 /* стало чуть шире колонки */
-        max-width: 340px;           /* чтобы не разъезжалось на ультрашироких */
+        width: 88%;
+        max-width: 340px;
         padding: 18px 20px 15px;
+
         border-radius: 18px;
         background: rgba(0,0,0,0.22);
         box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
 
-        /* анимация появления */
+        /* Анимация появления */
         opacity: 0;
         transform: translateY(22px);
-        will-change: opacity, transform;
-
         animation: fadeUp 0.7s ease-out forwards;
 
-        /* плавный hover */
+        /* Hover (только мышь) */
         transition:
             transform 0.25s ease,
             box-shadow 0.25s ease,
-            background 0.25s ease,
-            border-color 0.25s ease;
+            background 0.25s ease;
     }
 
-    /* hover только для нормальных курсоров, чтобы не мешать тач-устройствам */
     @media (hover:hover) and (pointer:fine) {
         .group-card:hover {
             transform: translateY(-4px);
@@ -207,7 +201,7 @@ body::after {
         }
     }
 
-    /* последовательное появление */
+    /* Появление по очереди */
     .group-card:nth-child(1) { animation-delay: 0.15s; }
     .group-card:nth-child(2) { animation-delay: 0.30s; }
     .group-card:nth-child(3) { animation-delay: 0.45s; }
@@ -219,94 +213,49 @@ body::after {
         to { opacity: 1; transform: translateY(0); }
     }
 
-    /* MOBILE CARD COMPRESSION — базовый */
+    /* MOBILE – premium wide */
     @media (max-width: 640px) {
         .group-card {
-            padding: 14px 16px 12px;
-            max-width: 360px;
+            width: 92%;
+            max-width: 420px;
+            padding: 18px 22px 16px;
+            border-radius: 20px;
+
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 0 22px rgba(0,0,0,0.35);
+            text-align: center;
+        }
+
+        .group-title {
+            font-size: 0.95rem;
+        }
+
+        .group-team {
+            font-size: 1rem;
         }
     }
 
-    /* CARD CONTENT */
     .group-title {
         font-size: 0.8rem;
         letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--accent-soft);
         margin-bottom: 6px;
-        opacity: 0.95;
     }
 
     .group-divider {
         height: 1px;
+        margin-bottom: 10px;
         background: linear-gradient(90deg,
             rgba(223,232,255,0.4),
             rgba(223,232,255,0.08));
-        margin-bottom: 10px;
     }
 
     .group-team {
         font-size: 0.9rem;
         margin-bottom: 4px;
-        color: var(--text-main);
         opacity: 0.9;
-    }
-
-    /* ================================
-       MOBILE PREMIUM WIDE — Variant A
-       ================================ */
-    @media (max-width: 640px) {
-
-        .groups-section {
-            margin-top: 38px;
-            padding-bottom: 48px;
-        }
-
-        .groups-grid {
-            grid-template-columns: 1fr !important;
-            justify-items: center;
-            gap: 22px;
-        }
-
-        .group-card {
-            width: 92%;
-            max-width: 420px;
-
-            padding: 18px 22px 16px;
-            border-radius: 20px;
-
-            background: rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(6px);
-            box-shadow: 0 0 22px rgba(0,0,0,0.35);
-
-            text-align: center;
-        }
-
-        .group-title {
-            font-size: 0.95rem;
-            letter-spacing: 0.24em;
-            margin-bottom: 8px;
-        }
-
-        .group-divider {
-            margin-bottom: 12px;
-        }
-
-        .group-team {
-            font-size: 1rem;
-            margin-bottom: 6px;
-            line-height: 1.32;
-        }
-
-        .timer-block {
-            margin-bottom: 18px;
-        }
-
-        h1 {
-            margin-top: 6px;
-            margin-bottom: 18px;
-            line-height: 1.35;
-        }
     }
 
 </style>
@@ -334,16 +283,19 @@ body::after {
         </defs>
 
         <g stroke="#dfe8ff" stroke-width="1.6" fill="none" filter="url(#cup-glow)">
-            <path d="M32 30 Q28 58 42 82" stroke-linecap="round" />
-            <path d="M68 30 Q72 58 58 82" stroke-linecap="round" />
-            <path d="M32 30 Q50 16 68 30" stroke-linecap="round" />
-            <path d="M45 86 Q50 90 55 86" stroke-linecap="round" />
-            <path d="M40 94 H60" stroke-linecap="round" />
+            <path d="M32 30 Q28 58 42 82" stroke-linecap="round"/>
+            <path d="M68 30 Q72 58 58 82" stroke-linecap="round"/>
+            <path d="M32 30 Q50 16 68 30" stroke-linecap="round"/>
+            <path d="M45 86 Q50 90 55 86" stroke-linecap="round"/>
+            <path d="M40 94 H60" stroke-linecap="round"/>
         </g>
 
-        <path d="M28 102 Q50 110 72 102" stroke="#dfe8ff"
-              stroke-width="1.1" stroke-linecap="round" opacity="0.8"
-              filter="url(#cup-glow)" />
+        <path d="M28 102 Q50 110 72 102"
+              stroke="#dfe8ff"
+              stroke-width="1.1"
+              stroke-linecap="round"
+              opacity="0.8"
+              filter="url(#cup-glow)"/>
     </svg>
 
     <div class="logo-caption">
@@ -422,6 +374,7 @@ body::after {
 </div>
 </div>
 
+
 <script>
 function updateTimer() {
     const target = new Date("2027-10-01T00:00:00").getTime();
@@ -445,6 +398,7 @@ function updateTimer() {
     document.getElementById("timer-line2").innerHTML =
         `${minutes.toString().padStart(2, "0")} мин · ${seconds.toString().padStart(2, "0")} сек`;
 }
+
 setInterval(updateTimer, 1000);
 updateTimer();
 </script>
