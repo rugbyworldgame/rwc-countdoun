@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"> 
+<meta charset="UTF-8">
 <title>Кубок мира по регби — Австралия 2027</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -10,7 +10,7 @@
     :root {
         --text-main: #dfe8ff;
         --text-sub: rgba(223,232,255,0.55);
-        --accent-soft: #8FAFE6; /* мягкий премиальный акцент */
+        --accent-soft: #8FAFE6;
     }
 
     body {
@@ -29,15 +29,14 @@
         overflow-x: hidden;
     }
 
-    /* ---------- APPLE CLEAN CINEMATIC BACKGROUND ---------- */
-
+    /* ---------- BACKGROUND LIGHT EFFECTS ---------- */
     body::before {
         content: "";
         position: fixed;
         inset: -40% -30% 35%;
         background: radial-gradient(circle at 50% 0%,
             rgba(90, 140, 255, 0.28) 0%,
-            rgba(12, 32, 64, 0.0) 60%);
+            rgba(12, 32, 64, 0) 60%);
         mix-blend-mode: screen;
         opacity: 0.55;
         pointer-events: none;
@@ -57,7 +56,7 @@
             ellipse at top,
             rgba(255, 255, 255, 0.22) 0%,
             rgba(255, 255, 255, 0.08) 26%,
-            rgba(0, 0, 0, 0.0) 72%
+            rgba(0, 0, 0, 0) 72%
         );
         opacity: 0.6;
         mix-blend-mode: screen;
@@ -67,17 +66,16 @@
     }
 
     @keyframes bgBreath {
-        0%   { opacity: 0.45; transform: translate3d(0, 0, 0); }
-        100% { opacity: 0.65; transform: translate3d(0, 2.5%, 0); }
+        0% { opacity: 0.45; transform: translateY(0); }
+        100% { opacity: 0.65; transform: translateY(2.5%); }
     }
 
     @keyframes spotBreath {
-        0%   { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+        0% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
         100% { opacity: 0.7; transform: translateX(-50%) translateY(3%); }
     }
 
-    /* ---------- ЛОГОТИП ---------- */
-
+    /* ---------- LOGO ---------- */
     .logo {
         display: flex;
         flex-direction: column;
@@ -99,8 +97,7 @@
         line-height: 1.2;
     }
 
-    /* ---------- ТАЙМЕР ---------- */
-
+    /* ---------- TIMER ---------- */
     h1 {
         font-size: clamp(1.2rem, 3.4vw, 1.65rem);
         margin-bottom: 14px;
@@ -124,9 +121,7 @@
         line-height: 1.2;
     }
 
-    #timer-line1 {
-        margin-bottom: 4px;
-    }
+    #timer-line1 { margin-bottom: 4px; }
 
     .subtitle {
         font-size: clamp(0.78rem, 2vw, 0.9rem);
@@ -134,8 +129,7 @@
         margin-top: 4px;
     }
 
-    /* ---------- ГРУППЫ ТУРНИРА ---------- */
-
+    /* ---------- GROUPS ---------- */
     .groups-section {
         margin-top: 52px;
         padding: 0 16px 56px;
@@ -143,27 +137,51 @@
         width: 100%;
     }
 
-    .groups-title {
-        font-size: clamp(1rem, 2.1vw, 1.25rem);
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: var(--text-main);
-        text-align: left;
-        opacity: 0.9;
-    }
-
     .groups-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px 22px;
+        gap: 22px 26px;
+        text-align: left;
+    }
+
+    @media (max-width: 960px) {
+        .groups-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .groups-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
     }
 
     .group-card {
-        padding: 16px 18px 14px;
+        padding: 18px 20px 15px;
         border-radius: 18px;
         background: rgba(0, 0, 0, 0.22);
         box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
-        text-align: left;
+
+        /* animation base */
+        opacity: 0;
+        transform: translateY(22px);
+        animation: fadeUp 0.7s ease-out forwards;
+    }
+
+    /* последовательное появление */
+    .group-card:nth-child(1) { animation-delay: 0.15s; }
+    .group-card:nth-child(2) { animation-delay: 0.30s; }
+    .group-card:nth-child(3) { animation-delay: 0.45s; }
+    .group-card:nth-child(4) { animation-delay: 0.60s; }
+    .group-card:nth-child(5) { animation-delay: 0.75s; }
+    .group-card:nth-child(6) { animation-delay: 0.90s; }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .group-title {
@@ -177,11 +195,9 @@
 
     .group-divider {
         height: 1px;
-        background: linear-gradient(
-            90deg,
+        background: linear-gradient(90deg,
             rgba(223,232,255,0.4),
-            rgba(223,232,255,0.08)
-        );
+            rgba(223,232,255,0.08));
         margin-bottom: 10px;
     }
 
@@ -192,61 +208,41 @@
         opacity: 0.9;
     }
 
-    .group-team:last-child {
-        margin-bottom: 0;
-    }
-
-    @media (max-width: 960px) {
-        .groups-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (max-width: 640px) {
-        .groups-grid {
-            grid-template-columns: 1fr;
-        }
-        .group-card {
-            padding: 14px 14px 12px;
-        }
-    }
 </style>
 </head>
 
 <body>
 
-<!-- ЛОГО -->
+<!-- LOGO -->
 <div class="logo">
     <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
         <defs>
             <filter id="cup-glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="2" result="blur"/>
+                <feGaussianBlur stdDeviation="2" result="blur" />
                 <feColorMatrix in="blur" type="matrix"
                     values="0 0 0 0 0.87
                             0 0 0 0 0.91
                             0 0 0 0 1
-                            0 0 0 0.75 0" result="glow"/>
+                            0 0 0 0.75 0"
+                    result="glow" />
                 <feMerge>
-                    <feMergeNode in="glow"/>
-                    <feMergeNode in="SourceGraphic"/>
+                    <feMergeNode in="glow" />
+                    <feMergeNode in="SourceGraphic" />
                 </feMerge>
             </filter>
         </defs>
 
         <g stroke="#dfe8ff" stroke-width="1.6" fill="none" filter="url(#cup-glow)">
-            <path d="M32 30 Q28 58 42 82" stroke-linecap="round"/>
-            <path d="M68 30 Q72 58 58 82" stroke-linecap="round"/>
-            <path d="M32 30 Q50 16 68 30" stroke-linecap="round"/>
-            <path d="M45 86 Q50 90 55 86" stroke-linecap="round"/>
-            <path d="M40 94 H60" stroke-linecap="round"/>
+            <path d="M32 30 Q28 58 42 82" stroke-linecap="round" />
+            <path d="M68 30 Q72 58 58 82" stroke-linecap="round" />
+            <path d="M32 30 Q50 16 68 30" stroke-linecap="round" />
+            <path d="M45 86 Q50 90 55 86" stroke-linecap="round" />
+            <path d="M40 94 H60" stroke-linecap="round" />
         </g>
 
-        <path d="M28 102 Q50 110 72 102"
-              stroke="#dfe8ff"
-              stroke-width="1.1"
-              stroke-linecap="round"
-              opacity="0.8"
-              filter="url(#cup-glow)"/>
+        <path d="M28 102 Q50 110 72 102" stroke="#dfe8ff"
+              stroke-width="1.1" stroke-linecap="round" opacity="0.8"
+              filter="url(#cup-glow)" />
     </svg>
 
     <div class="logo-caption">
@@ -254,7 +250,7 @@
     </div>
 </div>
 
-<!-- ТАЙМЕР -->
+<!-- TIMER -->
 <h1>До Кубка Мира по Регби осталось:</h1>
 
 <div class="timer-block">
@@ -264,72 +260,65 @@
 
 <div class="subtitle">Rugby World Cup 2027 starts in:</div>
 
-<!-- ГРУППЫ -->
+<!-- GROUPS -->
 <div class="groups-section">
-    
-        <div class="groups-grid">
+<div class="groups-grid">
 
-        <!-- A -->
-        <div class="group-card">
-            <div class="group-title">Группа A</div>
-            <div class="group-divider"></div>
-            <div class="group-team">Новая Зеландия</div>
-            <div class="group-team">Австралия</div>
-            <div class="group-team">Чили</div>
-            <div class="group-team">Гонконг–Китай</div>
-        </div>
-
-        <!-- B -->
-        <div class="group-card">
-            <div class="group-title">Группа B</div>
-            <div class="group-divider"></div>
-            <div class="group-team">ЮАР</div>
-            <div class="group-team">Италия</div>
-            <div class="group-team">Грузия</div>
-            <div class="group-team">Румыния</div>
-        </div>
-
-        <!-- C -->
-        <div class="group-card">
-            <div class="group-title">Группа C</div>
-            <div class="group-divider"></div>
-            <div class="group-team">Аргентина</div>
-            <div class="group-team">Фиджи</div>
-            <div class="group-team">Испания</div>
-            <div class="group-team">Канада</div>
-        </div>
-
-        <!-- D -->
-        <div class="group-card">
-            <div class="group-title">Группа D</div>
-            <div class="group-divider"></div>
-            <div class="group-team">Ирландия</div>
-            <div class="group-team">Шотландия</div>
-            <div class="group-team">Уругвай</div>
-            <div class="group-team">Португалия</div>
-        </div>
-
-        <!-- E -->
-        <div class="group-card">
-            <div class="group-title">Группа E</div>
-            <div class="group-divider"></div>
-            <div class="group-team">Франция</div>
-            <div class="group-team">Япония</div>
-            <div class="group-team">США</div>
-            <div class="group-team">Самоа</div>
-        </div>
-
-        <!-- F -->
-        <div class="group-card">
-            <div class="group-title">Группа F</div>
-            <div class="group-divider"></div>
-            <div class="group-team">Англия</div>
-            <div class="group-team">Уэльс</div>
-            <div class="group-team">Тонга</div>
-            <div class="group-team">Зимбабве</div>
-        </div>
-
+    <div class="group-card">
+        <div class="group-title">Группа A</div>
+        <div class="group-divider"></div>
+        <div class="group-team">Новая Зеландия</div>
+        <div class="group-team">Австралия</div>
+        <div class="group-team">Чили</div>
+        <div class="group-team">Гонконг–Китай</div>
     </div>
+
+    <div class="group-card">
+        <div class="group-title">Группа B</div>
+        <div class="group-divider"></div>
+        <div class="group-team">ЮАР</div>
+        <div class="group-team">Италия</div>
+        <div class="group-team">Грузия</div>
+        <div class="group-team">Румыния</div>
+    </div>
+
+    <div class="group-card">
+        <div class="group-title">Группа C</div>
+        <div class="group-divider"></div>
+        <div class="group-team">Аргентина</div>
+        <div class="group-team">Фиджи</div>
+        <div class="group-team">Испания</div>
+        <div class="group-team">Канада</div>
+    </div>
+
+    <div class="group-card">
+        <div class="group-title">Группа D</div>
+        <div class="group-divider"></div>
+        <div class="group-team">Ирландия</div>
+        <div class="group-team">Шотландия</div>
+        <div class="group-team">Уругвай</div>
+        <div class="group-team">Португалия</div>
+    </div>
+
+    <div class="group-card">
+        <div class="group-title">Группа E</div>
+        <div class="group-divider"></div>
+        <div class="group-team">Франция</div>
+        <div class="group-team">Япония</div>
+        <div class="group-team">США</div>
+        <div class="group-team">Самоа</div>
+    </div>
+
+    <div class="group-card">
+        <div class="group-title">Группа F</div>
+        <div class="group-divider"></div>
+        <div class="group-team">Англия</div>
+        <div class="group-team">Уэльс</div>
+        <div class="group-team">Тонга</div>
+        <div class="group-team">Зимбабве</div>
+    </div>
+
+</div>
 </div>
 
 <script>
@@ -355,7 +344,6 @@ function updateTimer() {
     document.getElementById("timer-line2").innerHTML =
         `${minutes.toString().padStart(2, "0")} мин · ${seconds.toString().padStart(2, "0")} сек`;
 }
-
 setInterval(updateTimer, 1000);
 updateTimer();
 </script>
