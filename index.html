@@ -7,13 +7,11 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
 <style>
-:root {
+:root{
   --text-main:#dfe8ff;
-  --text-sub:rgba(223,232,255,0.55);
+  --text-sub:rgba(223,232,255,.55);
   --accent-soft:#8FAFE6;
 }
-
-/* ================= GLOBAL ================= */
 
 body{
   margin:0;
@@ -25,27 +23,23 @@ body{
   background:radial-gradient(circle at 50% 0%,#1a2f4d 0%,#091626 55%,#04080f 100%);
 }
 
-body::before{
+body::before,body::after{
   content:"";
   position:fixed;
   inset:0;
-  background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.16),rgba(255,255,255,.05) 22%,transparent 70%);
-  opacity:.55;
   pointer-events:none;
   z-index:-1;
+}
+
+body::before{
+  background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.16),rgba(255,255,255,.05) 22%,transparent 70%);
+  opacity:.55;
 }
 
 body::after{
-  content:"";
-  position:fixed;
-  inset:0;
   background:radial-gradient(circle at 50% 35%,rgba(120,160,255,.12),transparent);
   opacity:.35;
-  pointer-events:none;
-  z-index:-1;
 }
-
-/* ================= LOGO ================= */
 
 .logo{
   display:flex;
@@ -62,8 +56,6 @@ body::after{
   color:var(--text-sub);
 }
 
-/* ================= TIMER ================= */
-
 h1{
   font-size:clamp(1.2rem,3.4vw,1.65rem);
   margin-bottom:14px;
@@ -79,12 +71,11 @@ h1{
   opacity:.55;
 }
 
-/* ================= GROUPS ================= */
-
 .groups-section{
   margin-top:52px;
   padding:0 16px 56px;
   max-width:1200px;
+  margin-inline:auto;
 }
 
 .groups-grid{
@@ -107,7 +98,7 @@ h1{
   animation:fadeUp .7s ease forwards;
 }
 
-.group-card:nth-child(n){animation-delay:calc(.15s * var(--i))}
+.group-card{animation-delay:calc(.15s * var(--i))}
 
 @keyframes fadeUp{to{opacity:1;transform:none}}
 
@@ -123,7 +114,7 @@ h1{
   background:linear-gradient(90deg,rgba(223,232,255,.4),rgba(223,232,255,.08));
 }
 
-/* ================= MENU ================= */
+/* ===== MENU ===== */
 
 .menu-btn{
   position:fixed;
@@ -179,6 +170,7 @@ h1{
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  will-change:transform;
 }
 
 .side-menu.active{transform:none}
@@ -189,8 +181,6 @@ h1{
   font-size:1.1rem;
   margin:14px 0;
 }
-
-.menu-btn,.side-menu,.menu-overlay{will-change:transform,opacity}
 </style>
 </head>
 
@@ -230,37 +220,37 @@ h1{
 
 <script>
 function updateTimer(){
-  const t=new Date("2027-10-01T00:00:00").getTime();
-  const d=t-Date.now();
-  if(d<=0)return;
-  const days=Math.floor(d/864e5);
-  const h=Math.floor(d/36e5)%24;
-  const m=Math.floor(d/6e4)%60;
-  const s=Math.floor(d/1e3)%60;
-  timer-line1.innerHTML=`${days} дн · ${h.toString().padStart(2,"0")} ч`;
-  timer-line2.innerHTML=`${m.toString().padStart(2,"0")} мин · ${s.toString().padStart(2,"0")} сек`;
+  const target=new Date("2027-10-01T00:00:00").getTime();
+  const diff=target-Date.now();
+  if(diff<=0)return;
+
+  const d=Math.floor(diff/864e5);
+  const h=Math.floor(diff/36e5)%24;
+  const m=Math.floor(diff/6e4)%60;
+  const s=Math.floor(diff/1e3)%60;
+
+  document.getElementById("timer-line1").innerHTML=
+    `${d} дн · ${h.toString().padStart(2,"0")} ч`;
+  document.getElementById("timer-line2").innerHTML=
+    `${m.toString().padStart(2,"0")} мин · ${s.toString().padStart(2,"0")} сек`;
 }
-setInterval(updateTimer,1000);updateTimer();
+setInterval(updateTimer,1000);
+updateTimer();
 
 const menuBtn=document.getElementById("menuBtn");
 const sideMenu=document.getElementById("sideMenu");
 const menuOverlay=document.getElementById("menuOverlay");
-let lock=false;
 
 function closeMenu(){
   menuBtn.classList.remove("active");
   sideMenu.classList.remove("active");
   menuOverlay.classList.remove("active");
-  lock=false;
 }
 
 menuBtn.onclick=()=>{
-  if(lock)return;
-  lock=true;
   menuBtn.classList.toggle("active");
   sideMenu.classList.toggle("active");
   menuOverlay.classList.toggle("active");
-  setTimeout(()=>lock=false,450);
 };
 
 menuOverlay.onclick=closeMenu;
