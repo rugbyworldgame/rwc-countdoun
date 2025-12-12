@@ -137,6 +137,27 @@
         line-height: 1.55;
         margin-bottom: 16px;
     }
+ /* VIDEO */
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 26px auto 0;
+    padding-top: 56.25%; /* 16:9 */
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 0 26px rgba(0,0,0,0.45);
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
 </style>
 
 </head>
@@ -178,6 +199,13 @@
   
     Здесь будут доступны прямые трансляции Кубка мира по регби 2027.
 </p>
+<div class="video-wrapper">
+  <iframe
+    src="https://vk.com/video_ext.php?oid=-175058841&id=456240731&autoplay=1"
+    allow="autoplay; encrypted-media; fullscreen; picture-in-picture; screen-wake-lock;"
+    allowfullscreen>
+  </iframe>
+</div>
 
 <div class="dev-card">
     <div class="badge">РАЗДЕЛ В РАЗРАБОТКЕ</div>
