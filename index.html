@@ -224,17 +224,17 @@ h1 {
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(6, 12, 22, 0.45);
+  backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
-  z-index: 1000;
-  touch-action: none;
+  z-index: 998;
 }
 
 .menu-overlay.active {
   opacity: 1;
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 /* ===== SIDE MENU ===== */
