@@ -60,19 +60,10 @@
       box-shadow: 0 0 6px rgba(50,255,126,0.8);
     }
 
-    .stream-status.offline {
-      color: rgba(223,232,255,0.6);
-      background: rgba(255,255,255,0.08);
-    }
-
-    .stream-status.offline .dot {
-      background: rgba(223,232,255,0.5);
-    }
-
     /* TITLES */
     h1 {
       font-size: clamp(1.6rem, 4vw, 2.4rem);
-      margin: 16px 0 16px;
+      margin: 16px 0;
     }
 
     .subtitle {
@@ -98,6 +89,16 @@
       width: 100%;
       height: 100%;
       border: 0;
+    }
+
+    /* SERVICE NOTE */
+    .stream-service {
+      margin: 16px auto 0;
+      max-width: 720px;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: rgba(223,232,255,0.6);
+      text-align: center;
     }
 
     /* CARD */
@@ -128,16 +129,6 @@
       margin-bottom: 10px;
     }
 
-    /* SERVICE NOTE */
-    .stream-service {
-      margin: 18px auto 0;
-      max-width: 720px;
-      font-size: 0.85rem;
-      line-height: 1.45;
-      color: rgba(223,232,255,0.6);
-      text-align: center;
-    }
-
     /* DISCLAIMER */
     .stream-disclaimer {
       margin: 28px auto 22px;
@@ -157,7 +148,6 @@
 
   <div class="page-content">
 
-    <!-- STREAM STATUS -->
     <div class="stream-status live">
       <span class="dot"></span>
       LIVE
@@ -177,6 +167,11 @@
       </iframe>
     </div>
 
+    <!-- SERVICE NOTE — СРАЗУ ПОД ПЛЕЕРОМ -->
+    <div class="stream-service">
+      ℹ️ Если трансляция не запускается, обновите страницу 1–2 раза и подождите несколько секунд.
+    </div>
+
     <div class="dev-card">
       <div class="badge">РЕЗЕРВНЫЙ СТРИМ</div>
       <div class="dev-text">
@@ -187,12 +182,6 @@
       </div>
     </div>
 
-    <!-- SERVICE NOTE -->
-    <div class="stream-service">
-      ℹ️ Если трансляция не запускается, обновите страницу 1–2 раза и подождите несколько секунд.
-    </div>
-
-    <!-- DISCLAIMER -->
     <div class="stream-disclaimer">
       Трансляция предоставляется из открытых источников.<br>
       Сайт не является правообладателем видеоматериала.
@@ -200,7 +189,6 @@
 
   </div>
 
-  <!-- MENU SCRIPT -->
   <script>
     fetch('/menu.html')
       .then(r => r.text())
@@ -213,7 +201,6 @@
       const menuBtn = document.getElementById('menuBtn');
       const sideMenu = document.getElementById('sideMenu');
       const menuOverlay = document.getElementById('menuOverlay');
-
       if (!menuBtn || !sideMenu || !menuOverlay) return;
 
       const menuLinks = sideMenu.querySelectorAll('a');
