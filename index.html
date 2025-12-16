@@ -207,7 +207,7 @@
       opacity:0.92;
     }
 
-    /* ===== MENU BUTTON (фикс: крест не накладывается на бургер) ===== */
+    /* ===== MENU BUTTON (100% без наложения крестика и бургера) ===== */
     .menu-btn{
       all:unset;
       position:fixed;
@@ -226,38 +226,54 @@
       box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
       backdrop-filter: blur(10px);
     }
-
-    .menu-icon{
-      position:relative;
-      width:22px;
-      height:16px;
-      display:block;
+    .menu-btn:focus-visible{
+      outline:2px solid rgba(143,175,230,0.6);
+      outline-offset:3px;
     }
 
-    .menu-icon span{
+    /* Два разных слоя: бургер и крест. Это исключает “ghost overlay” на Android */
+    .icon-burger,
+    .icon-close{
       position:absolute;
-      left:0;
-      right:0;
+      inset:0;
+      display:grid;
+      place-items:center;
+      transition: opacity .18s ease, transform .18s ease;
+      will-change: opacity, transform;
+    }
+
+    /* BURGER */
+    .icon-burger{
+      opacity:1;
+      transform: scale(1);
+    }
+    .icon-burger i{
+      display:block;
+      width:22px;
       height:2px;
-      border-radius:2px;
       background: rgba(255,255,255,0.92);
-      transition: transform .28s ease, opacity .20s ease, top .28s ease;
+      border-radius:2px;
     }
+    .icon-burger i + i{ margin-top:5px; }
 
-    .menu-icon span:nth-child(1){ top:0; }
-    .menu-icon span:nth-child(2){ top:7px; }
-    .menu-icon span:nth-child(3){ top:14px; }
-
-    .menu-btn.active .menu-icon span:nth-child(1){
-      top:7px;
-      transform: rotate(45deg);
-    }
-    .menu-btn.active .menu-icon span:nth-child(2){
+    /* CLOSE (крестик) */
+    .icon-close{
       opacity:0;
+      transform: scale(0.92);
+      font-size:22px;
+      line-height:1;
+      color: rgba(255,255,255,0.92);
     }
-    .menu-btn.active .menu-icon span:nth-child(3){
-      top:7px;
-      transform: rotate(-45deg);
+
+    /* STATE */
+    .menu-btn.active .icon-burger{
+      opacity:0;
+      transform: scale(0.92);
+      pointer-events:none;
+    }
+    .menu-btn.active .icon-close{
+      opacity:1;
+      transform: scale(1);
     }
 
     /* ===== OVERLAY ===== */
@@ -311,6 +327,11 @@
       letter-spacing:0.06em;
       transition: color .2s ease, transform .2s ease;
     }
+    .side-menu a:focus-visible{
+      outline:2px solid rgba(143,175,230,0.6);
+      outline-offset:4px;
+      border-radius:10px;
+    }
     @media (hover:hover) and (pointer:fine){
       .side-menu a:hover{
         color: var(--accent-soft);
@@ -328,10 +349,14 @@
 <body>
 
   <!-- MENU -->
-  <button class="menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false">
-    <span class="menu-icon" aria-hidden="true">
-      <span></span><span></span><span></span>
+  <button class="menu-btn" id="menuBtn"
+          aria-label="Меню"
+          aria-expanded="false"
+          aria-controls="sideMenu">
+    <span class="icon-burger" aria-hidden="true">
+      <i></i><i></i><i></i>
     </span>
+    <span class="icon-close" aria-hidden="true">✕</span>
   </button>
 
   <div class="menu-overlay" id="menuOverlay"></div>
@@ -496,7 +521,7 @@
       sideMenu.classList.add("active");
       menuOverlay.classList.add("active");
       menuBtn.setAttribute("aria-expanded", "true");
-      document.documentElement.style.overflow = "hidden"; // чтобы не было подскролла под меню
+      document.documentElement.style.overflow = "hidden";
     }
 
     function closeMenu() {
@@ -524,7 +549,6 @@
       if (e.key === "Escape") closeMenu();
     });
 
-    // Safety: если окно ресайзится (поворот экрана) — закрыть меню
     window.addEventListener("resize", () => {
       if (menuBtn.classList.contains("active")) closeMenu();
     });
