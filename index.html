@@ -16,8 +16,8 @@
       --bg-2:#091626;
       --bg-3:#04080f;
 
-      --glass: rgba(8,10,20,0.82);
-      --glass-border: rgba(255,255,255,0.06);
+      --glass: rgba(8,10,20,0.88);
+      --glass-border: rgba(255,255,255,0.08);
       --shadow-1: rgba(0,0,0,0.45);
     }
 
@@ -41,6 +41,11 @@
       color:var(--text-main);
       background: radial-gradient(circle at 50% 0%, var(--bg-1) 0%, var(--bg-2) 55%, var(--bg-3) 100%);
       position:relative;
+    }
+
+    /* блокируем прокрутку страницы, когда меню открыто */
+    html.menu-open{
+      overflow:hidden;
     }
 
     body::before{
@@ -74,7 +79,7 @@
       to{ opacity:0.65; }
     }
 
-    /* ===== PAGE CONTAINER (фикс центровки на всех устройствах) ===== */
+    /* ===== PAGE CONTAINER ===== */
     .page{
       width:100%;
       max-width:1200px;
@@ -207,7 +212,7 @@
       opacity:0.92;
     }
 
-    /* ===== MENU BUTTON (100% без наложения крестика и бургера) ===== */
+    /* ===== MENU BUTTON (всегда бургер, без превращения в крест) ===== */
     .menu-btn{
       all:unset;
       position:fixed;
@@ -218,80 +223,46 @@
       cursor:pointer;
       z-index:1200;
 
-      display:grid;
-      place-items:center;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:5px;
 
       border-radius:14px;
       background: rgba(0,0,0,0.18);
       box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
       backdrop-filter: blur(10px);
     }
+    .menu-btn span{
+      width:22px;
+      height:2px;
+      margin:0 auto;
+      background: rgba(255,255,255,0.92);
+      border-radius:2px;
+      display:block;
+    }
     .menu-btn:focus-visible{
       outline:2px solid rgba(143,175,230,0.6);
       outline-offset:3px;
     }
 
-    /* Два разных слоя: бургер и крест. Это исключает “ghost overlay” на Android */
-    .icon-burger,
-    .icon-close{
-      position:absolute;
-      inset:0;
-      display:grid;
-      place-items:center;
-      transition: opacity .18s ease, transform .18s ease;
-      will-change: opacity, transform;
-    }
-
-    /* BURGER */
-    .icon-burger{
-      opacity:1;
-      transform: scale(1);
-    }
-    .icon-burger i{
-      display:block;
-      width:22px;
-      height:2px;
-      background: rgba(255,255,255,0.92);
-      border-radius:2px;
-    }
-    .icon-burger i + i{ margin-top:5px; }
-
-    /* CLOSE (крестик) */
-    .icon-close{
-      opacity:0;
-      transform: scale(0.92);
-      font-size:22px;
-      line-height:1;
-      color: rgba(255,255,255,0.92);
-    }
-
-    /* STATE */
-    .menu-btn.active .icon-burger{
-      opacity:0;
-      transform: scale(0.92);
-      pointer-events:none;
-    }
-    .menu-btn.active .icon-close{
-      opacity:1;
-      transform: scale(1);
-    }
-
-    /* ===== OVERLAY ===== */
+    /* ===== OVERLAY (должен ловить тап/клик) ===== */
     .menu-overlay{
       position:fixed;
       inset:0;
       background: rgba(0,0,0,0.35);
       opacity:0;
       pointer-events:none;
-      transition: opacity .30s ease;
-      z-index:1100;
+      transition: opacity .25s ease;
+      z-index:1140;
+      touch-action:none;
     }
     .menu-overlay.active{
       opacity:1;
       pointer-events:auto;
     }
 
-    /* ===== SIDE MENU (фикс ширины и рамок) ===== */
+    /* ===== SIDE MENU ===== */
     .side-menu{
       position:fixed;
       top:0;
@@ -312,11 +283,33 @@
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      padding:24px 18px;
+      padding:64px 18px 24px; /* сверху место под крестик внутри меню */
     }
-
     .side-menu.active{
       transform: translateX(0);
+    }
+
+    /* Кнопка закрытия внутри меню (не фиксированная, не конфликтует с бургером) */
+    .menu-close{
+      all:unset;
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:40px;
+      height:40px;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      border-radius:12px;
+      background: rgba(0,0,0,0.18);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.92);
+      font-size:22px;
+      line-height:1;
+    }
+    .menu-close:focus-visible{
+      outline:2px solid rgba(143,175,230,0.6);
+      outline-offset:3px;
     }
 
     .side-menu a{
@@ -339,7 +332,7 @@
       }
     }
 
-    /* мелкая защита от случайного горизонтального скролла из-за fixed-элементов */
+    /* защита от случайного горизонтального скролла */
     .page, .groups-section, .groups-grid, .group-card, .logo, h1, .timer-line, .subtitle{
       max-width:100%;
     }
@@ -349,19 +342,15 @@
 <body>
 
   <!-- MENU -->
-  <button class="menu-btn" id="menuBtn"
-          aria-label="Меню"
-          aria-expanded="false"
-          aria-controls="sideMenu">
-    <span class="icon-burger" aria-hidden="true">
-      <i></i><i></i><i></i>
-    </span>
-    <span class="icon-close" aria-hidden="true">✕</span>
+  <button class="menu-btn" id="menuBtn" aria-label="Меню" aria-expanded="false" aria-controls="sideMenu">
+    <span></span><span></span><span></span>
   </button>
 
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <nav class="side-menu" id="sideMenu" aria-label="Навигация">
+    <button class="menu-close" id="menuClose" aria-label="Закрыть меню">✕</button>
+
     <a href="/">Главная</a>
     <a href="/streams.html">Трансляции</a>
     <a href="/schedule.html">Расписание</a>
@@ -510,47 +499,53 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // ===== MENU (stable) =====
+    // ===== MENU =====
     const menuBtn = document.getElementById("menuBtn");
     const sideMenu = document.getElementById("sideMenu");
     const menuOverlay = document.getElementById("menuOverlay");
+    const menuClose = document.getElementById("menuClose");
     const menuLinks = sideMenu.querySelectorAll("a");
 
-    function openMenu() {
-      menuBtn.classList.add("active");
+    function openMenu(){
       sideMenu.classList.add("active");
       menuOverlay.classList.add("active");
+      document.documentElement.classList.add("menu-open");
       menuBtn.setAttribute("aria-expanded", "true");
-      document.documentElement.style.overflow = "hidden";
     }
 
-    function closeMenu() {
-      menuBtn.classList.remove("active");
+    function closeMenu(){
       sideMenu.classList.remove("active");
       menuOverlay.classList.remove("active");
+      document.documentElement.classList.remove("menu-open");
       menuBtn.setAttribute("aria-expanded", "false");
-      document.documentElement.style.overflow = "";
     }
 
-    function toggleMenu() {
-      const isOpen = menuBtn.classList.contains("active");
+    function toggleMenu(){
+      const isOpen = sideMenu.classList.contains("active");
       if (isOpen) closeMenu();
       else openMenu();
     }
 
     menuBtn.addEventListener("click", toggleMenu);
+
+    // фон закрывает меню всегда (для мобильных обязательно pointerdown)
+    menuOverlay.addEventListener("pointerdown", closeMenu);
     menuOverlay.addEventListener("click", closeMenu);
 
-    menuLinks.forEach((link) => {
-      link.addEventListener("click", closeMenu);
-    });
+    // крестик внутри меню
+    menuClose.addEventListener("click", closeMenu);
 
-    document.addEventListener("keydown", (e) => {
+    // клик по пункту меню закрывает
+    menuLinks.forEach((a)=>a.addEventListener("click", closeMenu));
+
+    // Escape на десктопе
+    document.addEventListener("keydown", (e)=>{
       if (e.key === "Escape") closeMenu();
     });
 
-    window.addEventListener("resize", () => {
-      if (menuBtn.classList.contains("active")) closeMenu();
+    // при ресайзе закрываем, чтобы не было “полу-состояния”
+    window.addEventListener("resize", ()=>{
+      if (sideMenu.classList.contains("active")) closeMenu();
     });
   </script>
 
