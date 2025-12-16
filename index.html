@@ -13,7 +13,7 @@
   --accent-soft: #8FAFE6;
 }
 
-/* ===== BODY / LAYOUT ===== */
+/* ================= BODY ================= */
 body {
   margin: 0;
   min-height: 100vh;
@@ -47,7 +47,7 @@ body::before {
   z-index: -1;
 }
 
-/* ===== LOGO ===== */
+/* ================= LOGO ================= */
 .logo {
   display: flex;
   flex-direction: column;
@@ -57,7 +57,6 @@ body::before {
 
 .logo svg {
   width: 82px;
-  height: auto;
   margin-bottom: 6px;
 }
 
@@ -68,7 +67,7 @@ body::before {
   text-transform: uppercase;
 }
 
-/* ===== TIMER ===== */
+/* ================= TIMER ================= */
 h1 {
   font-size: clamp(1.2rem, 3.4vw, 1.65rem);
   margin-bottom: 14px;
@@ -86,7 +85,7 @@ h1 {
   opacity: 0.55;
 }
 
-/* ===== GROUPS ===== */
+/* ================= GROUPS ================= */
 .groups-section {
   margin-top: 52px;
   padding: 0 16px 56px;
@@ -121,6 +120,11 @@ h1 {
   opacity: 0;
   transform: translateY(22px);
   animation: fadeUp 0.6s ease forwards;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
 }
 
 .group-card:nth-child(1){animation-delay:.1s}
@@ -132,6 +136,17 @@ h1 {
 
 @keyframes fadeUp {
   to { opacity: 1; transform: none; }
+}
+
+/* ===== HOVER ПОДСВЕТКА (ВОССТАНОВЛЕНО) ===== */
+@media (hover:hover) and (pointer:fine) {
+  .group-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255,255,255,0.05);
+    box-shadow:
+      0 10px 26px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(143,175,230,0.35);
+  }
 }
 
 .group-title {
@@ -155,7 +170,7 @@ h1 {
   margin-bottom: 4px;
 }
 
-/* ===== MENU BUTTON (BUTTON) ===== */
+/* ================= MENU BUTTON ================= */
 .menu-btn {
   all: unset;
   position: fixed;
@@ -187,7 +202,7 @@ h1 {
   transform: translateY(-12px) rotate(-45deg);
 }
 
-/* ===== MENU OVERLAY ===== */
+/* ================= MENU OVERLAY ================= */
 .menu-overlay {
   position: fixed;
   inset: 0;
@@ -202,7 +217,7 @@ h1 {
   pointer-events: all;
 }
 
-/* ===== SIDE MENU (APPLE GLASS) ===== */
+/* ================= SIDE MENU ================= */
 .side-menu {
   position: fixed;
   top: 0;
@@ -277,7 +292,6 @@ h1 {
   </div>
 </div>
 
-<!-- TIMER -->
 <h1>До Кубка Мира по Регби осталось:</h1>
 
 <div>
@@ -385,7 +399,7 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-/* ===== MENU LOGIC (STABLE) ===== */
+/* ===== MENU LOGIC ===== */
 const menuBtn = document.getElementById("menuBtn");
 const sideMenu = document.getElementById("sideMenu");
 const menuOverlay = document.getElementById("menuOverlay");
