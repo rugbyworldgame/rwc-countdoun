@@ -13,15 +13,24 @@
   --accent-soft: #8FAFE6;
 }
 
-/* ===== GLOBAL ===== */
+/* ===== BODY / LAYOUT ===== */
 body {
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   font-family: Arial, sans-serif;
   text-align: center;
   color: var(--text-main);
   padding-top: 7vh;
   overflow-x: hidden;
-  background: radial-gradient(circle at 50% 0%, #1a2f4d 0%, #091626 55%, #04080f 100%);
+
+  background: radial-gradient(circle at 50% 0%,
+    #1a2f4d 0%,
+    #091626 55%,
+    #04080f 100%);
   position: relative;
 }
 
@@ -40,8 +49,18 @@ body::before {
 
 /* ===== LOGO ===== */
 .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 22px;
 }
+
+.logo svg {
+  width: 82px;
+  height: auto;
+  margin-bottom: 6px;
+}
+
 .logo-caption {
   font-size: 0.75rem;
   color: var(--text-sub);
@@ -53,14 +72,18 @@ body::before {
 h1 {
   font-size: clamp(1.2rem, 3.4vw, 1.65rem);
   margin-bottom: 14px;
+  font-weight: 600;
 }
+
 .timer-line {
   font-size: clamp(2.1rem, 6vw, 3rem);
+  line-height: 1.2;
 }
+
 .subtitle {
+  margin-top: 6px;
   font-size: 0.85rem;
   opacity: 0.55;
-  margin-top: 6px;
 }
 
 /* ===== GROUPS ===== */
@@ -69,13 +92,17 @@ h1 {
   padding: 0 16px 56px;
   max-width: 1200px;
   width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
+
 .groups-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 26px 32px;
   justify-items: center;
 }
+
 @media (max-width: 960px) {
   .groups-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -86,14 +113,16 @@ h1 {
 .group-card {
   width: 88%;
   max-width: 340px;
-  padding: 18px 20px;
+  padding: 18px 20px 16px;
   border-radius: 18px;
   background: rgba(0,0,0,0.22);
   box-shadow: 0 0 0 1px rgba(255,255,255,0.03);
+
   opacity: 0;
   transform: translateY(22px);
   animation: fadeUp 0.6s ease forwards;
 }
+
 .group-card:nth-child(1){animation-delay:.1s}
 .group-card:nth-child(2){animation-delay:.2s}
 .group-card:nth-child(3){animation-delay:.3s}
@@ -110,20 +139,23 @@ h1 {
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent-soft);
+  margin-bottom: 6px;
 }
+
 .group-divider {
   height: 1px;
-  margin: 10px 0;
+  margin-bottom: 10px;
   background: linear-gradient(90deg,
     rgba(223,232,255,0.4),
     rgba(223,232,255,0.08));
 }
+
 .group-team {
   font-size: 0.9rem;
   margin-bottom: 4px;
 }
 
-/* ===== MENU BUTTON (BUTTON, НЕ DIV) ===== */
+/* ===== MENU BUTTON (BUTTON) ===== */
 .menu-btn {
   all: unset;
   position: fixed;
@@ -137,12 +169,14 @@ h1 {
   flex-direction: column;
   justify-content: space-between;
 }
+
 .menu-btn span {
   height: 3px;
   background: rgba(255,255,255,0.85);
   border-radius: 2px;
   transition: all 0.35s ease;
 }
+
 .menu-btn.active span:nth-child(1) {
   transform: translateY(12px) rotate(45deg);
 }
@@ -168,7 +202,7 @@ h1 {
   pointer-events: all;
 }
 
-/* ===== SIDE MENU ===== */
+/* ===== SIDE MENU (APPLE GLASS) ===== */
 .side-menu {
   position: fixed;
   top: 0;
@@ -177,59 +211,139 @@ h1 {
   width: min(320px, 80%);
   background: rgba(8,10,20,0.8);
   backdrop-filter: blur(22px);
+  box-shadow: -8px 0 22px rgba(0,0,0,0.45);
   transform: translateX(100%);
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
   z-index: 1050;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .side-menu.active {
   transform: translateX(0);
 }
+
 .side-menu a {
   color: rgba(223,232,255,0.92);
   text-decoration: none;
   font-size: 1.1rem;
   margin: 14px 0;
+  letter-spacing: 0.06em;
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOGO -->
 <div class="logo">
-  <div class="logo-caption">RWC 2027<br>AUSTRALIA 2027</div>
+  <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="cup-glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="2" result="blur"/>
+        <feColorMatrix in="blur" type="matrix"
+          values="0 0 0 0 0.87
+                  0 0 0 0 0.91
+                  0 0 0 0 1
+                  0 0 0 0.75 0"/>
+        <feMerge>
+          <feMergeNode/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <g stroke="#dfe8ff" stroke-width="1.6" fill="none" filter="url(#cup-glow)">
+      <path d="M32 30 Q28 58 42 82" stroke-linecap="round"/>
+      <path d="M68 30 Q72 58 58 82" stroke-linecap="round"/>
+      <path d="M32 30 Q50 16 68 30" stroke-linecap="round"/>
+      <path d="M45 86 Q50 90 55 86" stroke-linecap="round"/>
+      <path d="M40 94 H60" stroke-linecap="round"/>
+    </g>
+
+    <path d="M28 102 Q50 110 72 102"
+          stroke="#dfe8ff"
+          stroke-width="1.1"
+          stroke-linecap="round"
+          opacity="0.8"
+          filter="url(#cup-glow)"/>
+  </svg>
+
+  <div class="logo-caption">
+    RWC 2027<br>AUSTRALIA 2027
+  </div>
 </div>
 
+<!-- TIMER -->
 <h1>До Кубка Мира по Регби осталось:</h1>
+
 <div>
   <div id="timer-line1" class="timer-line"></div>
   <div id="timer-line2" class="timer-line"></div>
 </div>
+
 <div class="subtitle">Rugby World Cup 2027 starts in:</div>
 
+<!-- GROUPS -->
 <div class="groups-section">
 <div class="groups-grid">
 
-<div class="group-card"><div class="group-title">Группа A</div><div class="group-divider"></div>
-<div class="group-team">Новая Зеландия</div><div class="group-team">Австралия</div><div class="group-team">Чили</div><div class="group-team">Гонконг–Китай</div></div>
+<div class="group-card">
+  <div class="group-title">Группа A</div>
+  <div class="group-divider"></div>
+  <div class="group-team">Новая Зеландия</div>
+  <div class="group-team">Австралия</div>
+  <div class="group-team">Чили</div>
+  <div class="group-team">Гонконг–Китай</div>
+</div>
 
-<div class="group-card"><div class="group-title">Группа B</div><div class="group-divider"></div>
-<div class="group-team">ЮАР</div><div class="group-team">Италия</div><div class="group-team">Грузия</div><div class="group-team">Румыния</div></div>
+<div class="group-card">
+  <div class="group-title">Группа B</div>
+  <div class="group-divider"></div>
+  <div class="group-team">ЮАР</div>
+  <div class="group-team">Италия</div>
+  <div class="group-team">Грузия</div>
+  <div class="group-team">Румыния</div>
+</div>
 
-<div class="group-card"><div class="group-title">Группа C</div><div class="group-divider"></div>
-<div class="group-team">Аргентина</div><div class="group-team">Фиджи</div><div class="group-team">Испания</div><div class="group-team">Канада</div></div>
+<div class="group-card">
+  <div class="group-title">Группа C</div>
+  <div class="group-divider"></div>
+  <div class="group-team">Аргентина</div>
+  <div class="group-team">Фиджи</div>
+  <div class="group-team">Испания</div>
+  <div class="group-team">Канада</div>
+</div>
 
-<div class="group-card"><div class="group-title">Группа D</div><div class="group-divider"></div>
-<div class="group-team">Ирландия</div><div class="group-team">Шотландия</div><div class="group-team">Уругвай</div><div class="group-team">Португалия</div></div>
+<div class="group-card">
+  <div class="group-title">Группа D</div>
+  <div class="group-divider"></div>
+  <div class="group-team">Ирландия</div>
+  <div class="group-team">Шотландия</div>
+  <div class="group-team">Уругвай</div>
+  <div class="group-team">Португалия</div>
+</div>
 
-<div class="group-card"><div class="group-title">Группа E</div><div class="group-divider"></div>
-<div class="group-team">Франция</div><div class="group-team">Япония</div><div class="group-team">США</div><div class="group-team">Самоа</div></div>
+<div class="group-card">
+  <div class="group-title">Группа E</div>
+  <div class="group-divider"></div>
+  <div class="group-team">Франция</div>
+  <div class="group-team">Япония</div>
+  <div class="group-team">США</div>
+  <div class="group-team">Самоа</div>
+</div>
 
-<div class="group-card"><div class="group-title">Группа F</div><div class="group-divider"></div>
-<div class="group-team">Англия</div><div class="group-team">Уэльс</div><div class="group-team">Тонга</div><div class="group-team">Зимбабве</div></div>
+<div class="group-card">
+  <div class="group-title">Группа F</div>
+  <div class="group-divider"></div>
+  <div class="group-team">Англия</div>
+  <div class="group-team">Уэльс</div>
+  <div class="group-team">Тонга</div>
+  <div class="group-team">Зимбабве</div>
+</div>
 
 </div>
 </div>
@@ -256,19 +370,22 @@ function updateTimer() {
   const target = new Date("2027-10-01T00:00:00").getTime();
   const diff = target - Date.now();
   if (diff <= 0) return;
+
   const d = Math.floor(diff / 86400000);
   const h = Math.floor(diff / 3600000 % 24);
   const m = Math.floor(diff / 60000 % 60);
   const s = Math.floor(diff / 1000 % 60);
+
   document.getElementById("timer-line1").innerHTML =
     `${d} дн · ${h.toString().padStart(2,"0")} ч`;
   document.getElementById("timer-line2").innerHTML =
     `${m.toString().padStart(2,"0")} мин · ${s.toString().padStart(2,"0")} сек`;
 }
+
 setInterval(updateTimer, 1000);
 updateTimer();
 
-/* ===== FIXED MENU LOGIC ===== */
+/* ===== MENU LOGIC (STABLE) ===== */
 const menuBtn = document.getElementById("menuBtn");
 const sideMenu = document.getElementById("sideMenu");
 const menuOverlay = document.getElementById("menuOverlay");
