@@ -169,23 +169,7 @@
 
 </head>
 <body>
-
-<!-- BURGER -->
-<div class="burger" onclick="openMenu()">
-    <span></span><span></span><span></span>
-</div>
-
-<!-- MENU PANEL -->
-<div class="menu-panel" id="menuPanel">
-    <div class="close-menu" onclick="closeMenu()">×</div>
-    <a href="/">Главная</a>
-    <a href="/streams.html">Трансляции</a>
-    <a href="/schedule.html">Расписание</a>
-    <a href="/news.html">Новости</a>
-    <a href="/about.html">О турнире</a>
-    <a href="/shop.html">Магазин</a>
-    <a href="/contacts.html">Контакты</a>
-</div>
+<div id="menu-container"></div>
 
 <!-- LOGO -->
 <div class="logo">
@@ -226,13 +210,40 @@
         Следите за обновлениями — раздел будет открыт одним из первых после публикации данных.
     </div>
 </div>
-
 <script>
-function openMenu() {
-    document.getElementById("menuPanel").classList.add("open");
-}
-function closeMenu() {
-    document.getElementById("menuPanel").classList.remove("open");
+fetch('/menu.html')
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById('menu-container').innerHTML = html;
+    initMenu();
+  });
+
+function initMenu() {
+  const menuBtn = document.getElementById("menuBtn");
+  const sideMenu = document.getElementById("sideMenu");
+  const menuOverlay = document.getElementById("menuOverlay");
+  const menuLinks = sideMenu.querySelectorAll("a");
+
+  function openMenu() {
+    menuBtn.classList.add("active");
+    sideMenu.classList.add("active");
+    menuOverlay.classList.add("active");
+    document.body.classList.add("menu-open");
+  }
+
+  function closeMenu() {
+    menuBtn.classList.remove("active");
+    sideMenu.classList.remove("active");
+    menuOverlay.classList.remove("active");
+    document.body.classList.remove("menu-open");
+  }
+
+  menuBtn.addEventListener("click", () => {
+    menuBtn.classList.contains("active") ? closeMenu() : openMenu();
+  });
+
+  menuOverlay.addEventListener("click", closeMenu);
+  menuLinks.forEach(a => a.addEventListener("click", closeMenu));
 }
 </script>
 
