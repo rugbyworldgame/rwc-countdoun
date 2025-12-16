@@ -1,0 +1,91 @@
+/* MENU BUTTON */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  width: 36px;
+  height: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-btn span {
+  height: 3px;
+  background: rgba(223,232,255,0.9);
+  border-radius: 3px;
+  transition: 0.3s ease;
+}
+
+/* ACTIVE BURGER → X */
+.menu-btn.active span:nth-child(1) {
+  transform: translateY(12px) rotate(45deg);
+}
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-btn.active span:nth-child(3) {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+/* OVERLAY */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 12, 22, 0.45);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 998;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* SIDE MENU */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: min(320px, 80%);
+  background: linear-gradient(
+    180deg,
+    rgba(18,26,44,0.72),
+    rgba(10,16,30,0.88)
+  );
+  backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: -8px 0 22px rgba(0,0,0,0.45);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+  z-index: 1050;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-menu.active {
+  transform: translateX(0);
+}
+
+.side-menu a {
+  color: rgba(223,232,255,0.92);
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin: 14px 0;
+  letter-spacing: 0.06em;
+}
+
+/* BODY LOCK */
+body.menu-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
