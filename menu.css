@@ -1,22 +1,18 @@
 /* MENU BUTTON */
-.menu-btn {
+.menu-overlay {
   position: fixed;
-  top: 18px;
-  right: 22px;
-  width: 36px;
-  height: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  z-index: 1100;
+  inset: 0;
+  background: rgba(6, 12, 22, 0.65); /* было слишком светло */
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 998;
 }
 
-.menu-btn span {
-  height: 3px;
-  background: rgba(223,232,255,0.9);
-  border-radius: 3px;
-  transition: 0.3s ease;
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* ACTIVE BURGER → X */
