@@ -19,7 +19,9 @@
   padding: 0;
   cursor: pointer;
 
-  z-index: 5000;
+  pointer-events: auto;
+
+  z-index: 1200;
 }
 
 .menu-btn span {
@@ -53,7 +55,7 @@
 }
 
 /* =========================================
-   OVERLAY (PREMIUM, NO FLASH)
+   OVERLAY (PREMIUM)
    ========================================= */
 
 .menu-overlay {
@@ -70,7 +72,7 @@
   pointer-events: none;
   transition: opacity 0.25s ease;
 
-  z-index: 998;
+  z-index: 1000;
 }
 
 .menu-overlay.active {
@@ -104,7 +106,7 @@
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(.4,0,.2,1);
 
-  z-index: 1050;
+  z-index: 1100;
 
   display: flex;
   flex-direction: column;
@@ -145,4 +147,5 @@
 
 body.menu-open {
   overflow: hidden;
+  overscroll-behavior: none;
 }
