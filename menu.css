@@ -20,7 +20,9 @@
   cursor: pointer;
 
   pointer-events: auto;
-  z-index: 1200;
+
+  /* ВСЕГДА СВЕРХУ */
+  z-index: 1300;
 }
 
 .menu-btn span {
@@ -52,33 +54,8 @@
 }
 
 /* =========================================
-   OVERLAY (DEEPENED)
-   ========================================= */
-
-.menu-overlay {
-  position: fixed;
-  inset: 0;
-
-  background: radial-gradient(
-    circle at 70% 45%,
-    rgba(0,0,0,0.45),
-    rgba(0,0,0,0.85)
-  );
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-
-  z-index: 1000;
-}
-
-.menu-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* =========================================
-   SIDE MENU — GLASS (DESKTOP STRONG)
+   SIDE MENU — REAL GLASS
+   (СТЕКЛО ДОЛЖНО БЫТЬ ПОД OVERLAY)
    ========================================= */
 
 .side-menu {
@@ -89,28 +66,26 @@
   height: 100vh;
   width: min(340px, 82%);
 
-  /* БАЗОВОЕ СТЕКЛО */
-  background-color: rgba(10, 16, 30, 0.58);
+  /* ПРОЗРАЧНОСТЬ ДЛЯ BLUR */
+  background-color: rgba(12, 18, 32, 0.42);
 
-  /* ГРАДИЕНТ ДЛЯ ГЛУБИНЫ */
   background-image: linear-gradient(
     180deg,
-    rgba(32,48,72,0.55),
-    rgba(10,16,30,0.82)
+    rgba(42,64,96,0.45),
+    rgba(10,16,30,0.75)
   );
 
-  /* УСИЛЕННЫЙ BLUR */
-  backdrop-filter: blur(32px) saturate(165%) contrast(108%);
-  -webkit-backdrop-filter: blur(32px) saturate(165%) contrast(108%);
+  backdrop-filter: blur(36px) saturate(170%) contrast(110%);
+  -webkit-backdrop-filter: blur(36px) saturate(170%) contrast(110%);
 
-  /* ГЛУБОКАЯ ТЕНЬ */
   box-shadow:
-    -12px 0 40px rgba(0,0,0,0.65),
-    inset 1px 0 0 rgba(255,255,255,0.08);
+    -14px 0 46px rgba(0,0,0,0.65),
+    inset 1px 0 0 rgba(255,255,255,0.10);
 
   transform: translateX(100%);
   transition: transform 0.45s cubic-bezier(.4,0,.2,1);
 
+  /* ВАЖНО: НИЖЕ OVERLAY */
   z-index: 1100;
 
   display: flex;
@@ -119,13 +94,12 @@
   align-items: center;
 }
 
-/* АКТИВНОЕ СОСТОЯНИЕ */
 .side-menu.active {
   transform: translateX(0);
 }
 
 /* -----------------------------------------
-   EDGE GLOW (ТОНКИЙ СВЕТ ПО КРОМКЕ)
+   EDGE GLOW — ТОНКИЙ СВЕТ
    ----------------------------------------- */
 
 .side-menu::before {
@@ -139,13 +113,40 @@
 
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,0.35),
-    rgba(255,255,255,0.08),
-    rgba(255,255,255,0.35)
+    rgba(255,255,255,0.55),
+    rgba(255,255,255,0.12),
+    rgba(255,255,255,0.55)
   );
 
-  opacity: 0.45;
+  opacity: 0.6;
   pointer-events: none;
+}
+
+/* =========================================
+   OVERLAY (ВЫШЕ МЕНЮ — НЕ БЛОКИРУЕТ BLUR)
+   ========================================= */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+
+  background: radial-gradient(
+    circle at 65% 45%,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.85)
+  );
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+
+  /* ВЫШЕ side-menu */
+  z-index: 1200;
+}
+
+.menu-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* -----------------------------------------
@@ -153,7 +154,7 @@
    ----------------------------------------- */
 
 .side-menu a {
-  color: rgba(223,232,255,0.92);
+  color: rgba(223,232,255,0.95);
   text-decoration: none;
 
   font-size: 1.1rem;
@@ -172,18 +173,18 @@
 }
 
 /* =========================================
-   MOBILE — QUIETER VERSION
+   MOBILE — QUIETER, BUT STILL GLASS
    ========================================= */
 
 @media (max-width: 768px) {
   .side-menu {
     width: min(300px, 86%);
 
-    background-color: rgba(12, 18, 30, 0.72);
+    background-color: rgba(12, 18, 30, 0.6);
 
     background-image: linear-gradient(
       180deg,
-      rgba(18,26,44,0.45),
+      rgba(18,26,44,0.4),
       rgba(10,16,30,0.9)
     );
 
@@ -195,7 +196,7 @@
   }
 
   .side-menu::before {
-    opacity: 0.25;
+    opacity: 0.3;
   }
 }
 
