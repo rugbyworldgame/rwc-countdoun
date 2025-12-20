@@ -1,8 +1,12 @@
-/* MENU BUTTON */
+/* =========================================
+   MENU BUTTON (DESKTOP)
+   ========================================= */
+
 .menu-btn {
   position: fixed;
   top: 18px;
   right: 22px;
+
   width: 36px;
   height: 26px;
 
@@ -15,45 +19,52 @@
   padding: 0;
   cursor: pointer;
 
-  z-index: 1100;
+  z-index: 5000;
 }
+
 .menu-btn span {
   display: block;
   width: 100%;
   height: 3px;
+
   background: rgba(223,232,255,0.95);
   border-radius: 3px;
+
   transform-origin: center;
-  transition: transform 0.35s ease, opacity 0.25s ease;
+  transition:
+    transform 0.35s ease,
+    opacity 0.25s ease;
 }
 
+/* -----------------------------------------
+   BURGER → X (ACTIVE STATE)
+   ----------------------------------------- */
 
-.menu-btn span {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background: rgba(223,232,255,0.95);
-  border-radius: 3px;
-  transition: transform 0.35s ease, opacity 0.25s ease;
-}
-
-/* ACTIVE BURGER → X */
 .menu-btn.active span:nth-child(1) {
-  transform: translateY(11.5px) rotate(45deg);
+  transform: translateY(11px) rotate(45deg);
 }
+
 .menu-btn.active span:nth-child(2) {
   opacity: 0;
 }
+
 .menu-btn.active span:nth-child(3) {
-  transform: translateY(-11.5px) rotate(-45deg);
+  transform: translateY(-11px) rotate(-45deg);
 }
 
-/* OVERLAY — БЕЗ ЗАСВЕТА */
+/* =========================================
+   OVERLAY (PREMIUM, NO FLASH)
+   ========================================= */
+
 .menu-overlay {
   position: fixed;
   inset: 0;
 
-  background: rgba(0, 0, 0, 0.65);
+  background: radial-gradient(
+    circle at 70% 50%,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.75)
+  );
 
   opacity: 0;
   pointer-events: none;
@@ -67,25 +78,32 @@
   pointer-events: auto;
 }
 
+/* =========================================
+   SIDE MENU (GLASS PREMIUM)
+   ========================================= */
 
-
-
-/* SIDE MENU */
 .side-menu {
   position: fixed;
   top: 0;
   right: 0;
+
   height: 100vh;
   width: min(320px, 80%);
+
   background: linear-gradient(
     180deg,
-    rgba(18,26,44,0.72),
-    rgba(10,16,30,0.88)
+    rgba(18,26,44,0.65),
+    rgba(10,16,30,0.85)
   );
-  backdrop-filter: blur(18px) saturate(140%);
-  box-shadow: -8px 0 22px rgba(0,0,0,0.45);
+
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+
+  box-shadow: -8px 0 28px rgba(0,0,0,0.55);
+
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(.4,0,.2,1);
+
   z-index: 1050;
 
   display: flex;
@@ -98,50 +116,33 @@
   transform: translateX(0);
 }
 
+/* -----------------------------------------
+   MENU LINKS
+   ----------------------------------------- */
+
 .side-menu a {
   color: rgba(223,232,255,0.92);
   text-decoration: none;
+
   font-size: 1.1rem;
-  margin: 14px 0;
-  letter-spacing: 0.06em;
+  margin: 16px 0;
+
+  letter-spacing: 0.08em;
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
-/* BODY LOCK */
+.side-menu a:hover {
+  opacity: 0.75;
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   BODY LOCK
+   ========================================= */
+
 body.menu-open {
   overflow: hidden;
- }
-
-.menu-btn {
-  z-index: 5000;
-}
-
-/* FORCE MENU BUTTON VISIBILITY */
-.menu-btn {
-  position: fixed !important;
-  top: 18px !important;
-  right: 22px !important;
-
-  width: 36px !important;
-  height: 26px !important;
-
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-
-  background: none !important;
-  border: none !important;
-  padding: 0 !important;
-
-  opacity: 1 !important;
-  visibility: visible !important;
-
-  z-index: 9999 !important;
-}
-
-.menu-btn span {
-  display: block !important;
-  width: 100% !important;
-  height: 3px !important;
-  background: rgba(223,232,255,0.95) !important;
-  border-radius: 3px !important;
 }
