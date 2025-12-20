@@ -24,9 +24,15 @@
   transition: transform .35s ease, opacity .25s ease;
 }
 
-.menu-btn.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
-.menu-btn.active span:nth-child(2){opacity:0}
-.menu-btn.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+.menu-btn.active span:nth-child(1){
+  transform: translateY(11px) rotate(45deg);
+}
+.menu-btn.active span:nth-child(2){
+  opacity: 0;
+}
+.menu-btn.active span:nth-child(3){
+  transform: translateY(-11px) rotate(-45deg);
+}
 
 /* =========================================
    OVERLAY
@@ -52,7 +58,7 @@
 }
 
 /* =========================================
-   SIDE MENU — DESKTOP
+   SIDE MENU — PREMIUM PANEL
    ========================================= */
 
 .side-menu {
@@ -61,12 +67,20 @@
   right: 0;
   height: 100vh;
 
-  /* DESKTOP: как было, норм */
+  /* Геометрия */
   width: 320px;
   max-width: 82vw;
 
-  background: rgba(12,18,32,0.88);
-  box-shadow: -14px 0 42px rgba(0,0,0,0.7);
+  /* ТИХИЙ ПРЕМИАЛЬНЫЙ ФОН */
+  background: linear-gradient(
+    180deg,
+    rgba(18,26,44,0.92),
+    rgba(10,16,30,0.96)
+  );
+
+  /* МЯГКАЯ ТЕНЬ БЕЗ ЖЁСТКОЙ ГРАНИ */
+  box-shadow:
+    -18px 0 48px rgba(0,0,0,0.6);
 
   transform: translateX(100%);
   transition: transform .45s cubic-bezier(.4,0,.2,1);
@@ -76,6 +90,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  overflow: hidden;
 }
 
 .side-menu.active {
@@ -83,11 +99,32 @@
 }
 
 /* =========================================
+   SOFT EDGE — РАСТВОРЕНИЕ КРАЯ
+   ========================================= */
+
+.side-menu::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -32px;
+  width: 32px;
+  height: 100%;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to left,
+    rgba(12,18,32,0.95),
+    rgba(12,18,32,0.55),
+    rgba(12,18,32,0.0)
+  );
+}
+
+/* =========================================
    MENU LINKS
    ========================================= */
 
 .side-menu a {
-  color: rgba(245,248,255,0.95);
+  color: rgba(245,248,255,0.96);
   text-decoration: none;
   font-size: 1.12rem;
   margin: 16px 0;
@@ -101,17 +138,21 @@
 }
 
 /* =========================================
-   MOBILE — FIX WIDTH (−20%)
+   MOBILE — УЖЕ ОТЛИЧНО, НЕ ЛОМАЕМ
    ========================================= */
 
 @media (max-width: 768px) {
   .side-menu {
-    /* КЛЮЧЕВАЯ ПРАВКА */
-    width: 260px;        /* было ~320 */
-    max-width: 70vw;     /* вместо 82–86% */
-
+    width: 260px;
+    max-width: 70vw;
     justify-content: flex-start;
     padding-top: 22vh;
+  }
+
+  .side-menu::after {
+    left: -20px;
+    width: 20px;
+    opacity: 0.6;
   }
 
   .side-menu a {
