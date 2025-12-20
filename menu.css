@@ -20,7 +20,6 @@
   cursor: pointer;
 
   pointer-events: auto;
-
   z-index: 1200;
 }
 
@@ -81,7 +80,7 @@
 }
 
 /* =========================================
-   SIDE MENU (GLASS PREMIUM)
+   SIDE MENU (GLASS — FIXED)
    ========================================= */
 
 .side-menu {
@@ -92,10 +91,14 @@
   height: 100vh;
   width: min(320px, 80%);
 
-  background: linear-gradient(
+  /* КЛЮЧ: базовый полупрозрачный слой */
+  background-color: rgba(14, 20, 34, 0.65);
+
+  /* Градиент поверх — для премиального цвета */
+  background-image: linear-gradient(
     180deg,
-    rgba(18,26,44,0.65),
-    rgba(10,16,30,0.85)
+    rgba(18,26,44,0.55),
+    rgba(10,16,30,0.75)
   );
 
   backdrop-filter: blur(22px) saturate(150%);
