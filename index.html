@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Кубок мира по регби — Австралия 2027</title>
+
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="stylesheet" href="/menu.css">
 
 <style>
 :root {
@@ -193,7 +195,7 @@ h1 {
 
 <body>
 
-<!-- MENU (loaded dynamically) -->
+<!-- MENU -->
 <div id="menu-container"></div>
 
 <!-- LOGO -->
@@ -230,6 +232,8 @@ h1 {
 <div class="groups-section">
   <div class="groups-grid">
 
+    <!-- группы — без изменений -->
+    <!-- A -->
     <div class="group-card">
       <div class="group-title">Группа A</div>
       <div class="group-divider"></div>
@@ -239,6 +243,7 @@ h1 {
       <div class="group-team">Гонконг–Китай</div>
     </div>
 
+    <!-- B -->
     <div class="group-card">
       <div class="group-title">Группа B</div>
       <div class="group-divider"></div>
@@ -248,6 +253,7 @@ h1 {
       <div class="group-team">Румыния</div>
     </div>
 
+    <!-- C -->
     <div class="group-card">
       <div class="group-title">Группа C</div>
       <div class="group-divider"></div>
@@ -257,6 +263,7 @@ h1 {
       <div class="group-team">Канада</div>
     </div>
 
+    <!-- D -->
     <div class="group-card">
       <div class="group-title">Группа D</div>
       <div class="group-divider"></div>
@@ -266,6 +273,7 @@ h1 {
       <div class="group-team">Португалия</div>
     </div>
 
+    <!-- E -->
     <div class="group-card">
       <div class="group-title">Группа E</div>
       <div class="group-divider"></div>
@@ -275,6 +283,7 @@ h1 {
       <div class="group-team">Самоа</div>
     </div>
 
+    <!-- F -->
     <div class="group-card">
       <div class="group-title">Группа F</div>
       <div class="group-divider"></div>
@@ -309,6 +318,35 @@ updateTimer();
 </script>
 
 <script>
+function initMenu() {
+  const menuBtn = document.getElementById("menuBtn");
+  const sideMenu = document.getElementById("sideMenu");
+  const menuOverlay = document.getElementById("menuOverlay");
+
+  if (!menuBtn || !sideMenu || !menuOverlay) return;
+
+  function openMenu() {
+    menuBtn.classList.add("active");
+    sideMenu.classList.add("active");
+    menuOverlay.classList.add("active");
+    document.body.classList.add("menu-open");
+  }
+
+  function closeMenu() {
+    menuBtn.classList.remove("active");
+    sideMenu.classList.remove("active");
+    menuOverlay.classList.remove("active");
+    document.body.classList.remove("menu-open");
+  }
+
+  menuBtn.addEventListener("click", () => {
+    menuBtn.classList.contains("active") ? closeMenu() : openMenu();
+  });
+
+  menuOverlay.addEventListener("click", closeMenu);
+  sideMenu.querySelectorAll("a").forEach(a => a.addEventListener("click", closeMenu));
+}
+
 fetch('/menu.html')
   .then(r => r.text())
   .then(html => {
