@@ -1,5 +1,5 @@
 /* =========================================
-   MENU BUTTON (DESKTOP)
+   MENU BUTTON
    ========================================= */
 
 .menu-btn {
@@ -19,24 +19,16 @@
   padding: 0;
   cursor: pointer;
 
-  pointer-events: auto;
-
-  /* ВСЕГДА СВЕРХУ */
-  z-index: 1300;
+  z-index: 1400;
 }
 
 .menu-btn span {
-  display: block;
   width: 100%;
   height: 3px;
-
-  background: rgba(223,232,255,0.95);
+  background: rgba(230,238,255,0.95);
   border-radius: 3px;
 
-  transform-origin: center;
-  transition:
-    transform 0.35s ease,
-    opacity 0.25s ease;
+  transition: transform .35s ease, opacity .25s ease;
 }
 
 /* -----------------------------------------
@@ -54,76 +46,7 @@
 }
 
 /* =========================================
-   SIDE MENU — REAL GLASS
-   (СТЕКЛО ДОЛЖНО БЫТЬ ПОД OVERLAY)
-   ========================================= */
-
-.side-menu {
-  position: fixed;
-  top: 0;
-  right: 0;
-
-  height: 100vh;
-  width: min(340px, 82%);
-
-  /* ПРОЗРАЧНОСТЬ ДЛЯ BLUR */
-  background-color: rgba(12, 18, 32, 0.42);
-
-  background-image: linear-gradient(
-    180deg,
-    rgba(42,64,96,0.45),
-    rgba(10,16,30,0.75)
-  );
-
-  backdrop-filter: blur(36px) saturate(170%) contrast(110%);
-  -webkit-backdrop-filter: blur(36px) saturate(170%) contrast(110%);
-
-  box-shadow:
-    -14px 0 46px rgba(0,0,0,0.65),
-    inset 1px 0 0 rgba(255,255,255,0.10);
-
-  transform: translateX(100%);
-  transition: transform 0.45s cubic-bezier(.4,0,.2,1);
-
-  /* ВАЖНО: НИЖЕ OVERLAY */
-  z-index: 1100;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.side-menu.active {
-  transform: translateX(0);
-}
-
-/* -----------------------------------------
-   EDGE GLOW — ТОНКИЙ СВЕТ
-   ----------------------------------------- */
-
-.side-menu::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 1px;
-  height: 100%;
-
-  background: linear-gradient(
-    180deg,
-    rgba(255,255,255,0.55),
-    rgba(255,255,255,0.12),
-    rgba(255,255,255,0.55)
-  );
-
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-/* =========================================
-   OVERLAY (ВЫШЕ МЕНЮ — НЕ БЛОКИРУЕТ BLUR)
+   OVERLAY — VISUAL ONLY
    ========================================= */
 
 .menu-overlay {
@@ -137,66 +60,115 @@
   );
 
   opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.35s ease;
+  transition: opacity .35s ease;
 
-  /* ВЫШЕ side-menu */
+  /* ВАЖНО: overlay НЕ ловит клики */
+  pointer-events: none;
+
   z-index: 1200;
 }
 
 .menu-overlay.active {
   opacity: 1;
-  pointer-events: auto;
+}
+
+/* =========================================
+   SIDE MENU — GLASS + CONTRAST
+   ========================================= */
+
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  height: 100vh;
+  width: min(340px, 82%);
+
+  /* ЧУТЬ ПЛОТНЕЕ ФОН — ДЛЯ ЧИТАЕМОСТИ */
+  background-color: rgba(12, 18, 32, 0.62);
+
+  background-image: linear-gradient(
+    180deg,
+    rgba(42,64,96,0.45),
+    rgba(10,16,30,0.88)
+  );
+
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
+
+  box-shadow:
+    -14px 0 42px rgba(0,0,0,0.7),
+    inset 1px 0 0 rgba(255,255,255,0.12);
+
+  transform: translateX(100%);
+  transition: transform .45s cubic-bezier(.4,0,.2,1);
+
+  z-index: 1300;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.side-menu.active {
+  transform: translateX(0);
 }
 
 /* -----------------------------------------
-   MENU LINKS
+   EDGE LIGHT
    ----------------------------------------- */
 
+.side-menu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 1px;
+  height: 100%;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.12),
+    rgba(255,255,255,.45)
+  );
+
+  opacity: .55;
+}
+
+/* =========================================
+   MENU LINKS — READABLE & CLICKABLE
+   ========================================= */
+
 .side-menu a {
-  color: rgba(223,232,255,0.95);
+  color: rgba(240,245,255,0.98);
   text-decoration: none;
 
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   margin: 16px 0;
 
-  letter-spacing: 0.09em;
+  letter-spacing: .08em;
 
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+  cursor: pointer;
+
+  transition: opacity .25s ease, transform .25s ease;
 }
 
 .side-menu a:hover {
-  opacity: 0.75;
+  opacity: .85;
   transform: translateY(-1px);
 }
 
 /* =========================================
-   MOBILE — QUIETER, BUT STILL GLASS
+   MOBILE — QUIETER
    ========================================= */
 
 @media (max-width: 768px) {
   .side-menu {
     width: min(300px, 86%);
-
-    background-color: rgba(12, 18, 30, 0.6);
-
-    background-image: linear-gradient(
-      180deg,
-      rgba(18,26,44,0.4),
-      rgba(10,16,30,0.9)
-    );
-
-    backdrop-filter: blur(18px) saturate(135%);
-    -webkit-backdrop-filter: blur(18px) saturate(135%);
-
-    box-shadow:
-      -8px 0 28px rgba(0,0,0,0.6);
-  }
-
-  .side-menu::before {
-    opacity: 0.3;
+    backdrop-filter: blur(18px) saturate(130%);
   }
 }
 
@@ -206,5 +178,4 @@
 
 body.menu-open {
   overflow: hidden;
-  overscroll-behavior: none;
 }
