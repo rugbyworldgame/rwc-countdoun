@@ -1,5 +1,5 @@
 /* =========================================
-   SITE BACKGROUND v4 — PREMIUM DEPTH
+   SITE BACKGROUND v5 — SAFE PREMIUM
    ========================================= */
 
 html,
@@ -11,16 +11,16 @@ body {
 }
 
 /* -----------------------------------------
-   ОСНОВНОЙ ФОН С ВИНЬЕТКОЙ
+   ПРЕМИАЛЬНЫЙ ФОН (БЕЗ ПСЕВДОСЛОЁВ)
    ----------------------------------------- */
 
 body {
   background:
-    /* Виньетка — формирует кадр */
+    /* Виньетка по краям — кадр */
     radial-gradient(
       ellipse at center,
       rgba(0,0,0,0) 0%,
-      rgba(0,0,0,0.22) 62%,
+      rgba(0,0,0,0.22) 60%,
       rgba(0,0,0,0.55) 100%
     ),
 
@@ -36,54 +36,4 @@ body {
 
   position: relative;
   overflow-x: hidden;
-}
-
-/* -----------------------------------------
-   ВЕРХНИЙ АКЦЕНТ (ДОРОГОЙ, НЕ ВУАЛЬ)
-   ----------------------------------------- */
-
-body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(150,190,255,0.05),
-      rgba(150,190,255,0.018) 36%,
-      rgba(0,0,0,0) 70%
-    );
-}
-
-/* -----------------------------------------
-   НИЖНЯЯ ГЛУБИНА
-   ----------------------------------------- */
-
-body::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-
-  background:
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(0,0,0,0.18),
-      rgba(0,0,0,0.55)
-    );
-}
-
-/* -----------------------------------------
-   КОНТЕНТ ВЫШЕ ФОНА
-   ----------------------------------------- */
-
-body > main,
-body > div,
-body > section,
-body > header,
-body > footer {
-  position: relative;
-  z-index: 2;
 }
