@@ -168,3 +168,16 @@
 body.menu-open {
   overflow: hidden;
 }
+
+/* Убираем мобильную подсветку клика */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button,
+#menuBtn {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
