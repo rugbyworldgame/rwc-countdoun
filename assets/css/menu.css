@@ -27,30 +27,29 @@
 .menu-btn.active span:nth-child(1){
   transform: translateY(11px) rotate(45deg);
 }
+
 .menu-btn.active span:nth-child(2){
   opacity: 0;
 }
+
 .menu-btn.active span:nth-child(3){
   transform: translateY(-11px) rotate(-45deg);
 }
 
 /* =========================================
-   OVERLAY — ПРОЗРАЧНЫЙ, НО КЛИКАБЕЛЬНЫЙ
+   OVERLAY — НЕВИДИМЫЙ, НО КЛИКАБЕЛЬНЫЙ
    ========================================= */
 
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: transparent; /* НЕТ затемнения */
-  opacity: 0;
+  background: transparent; /* никакого затемнения */
   pointer-events: none;
-  transition: opacity .2s ease;
   z-index: 1200;
 }
 
 .menu-overlay.active {
-  opacity: 1;
-  pointer-events: auto; /* ← ВАЖНО */
+  pointer-events: auto; /* закрытие по клику */
 }
 
 /* =========================================
@@ -65,16 +64,19 @@
   width: 320px;
   max-width: 82vw;
 
+  /* стекло, которое читается и на тёмных фонах */
   background: linear-gradient(
     180deg,
-    rgba(18,26,44,0.72),
-    rgba(10,16,30,0.82)
+    rgba(20,30,52,0.78),
+    rgba(12,18,36,0.88)
   );
 
-  backdrop-filter: blur(16px) saturate(120%);
-  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
 
-  box-shadow: -12px 0 32px rgba(0,0,0,0.45);
+  box-shadow:
+    -14px 0 36px rgba(0,0,0,0.45),
+    inset 1px 0 0 rgba(255,255,255,0.06);
 
   transform: translateX(100%);
   transition: transform .45s cubic-bezier(.4,0,.2,1);
@@ -87,7 +89,6 @@
 
   overflow: hidden;
 
-  contain: paint;
   will-change: transform;
 }
 
@@ -96,23 +97,23 @@
 }
 
 /* =========================================
-   SOFT EDGE — АККУРАТНАЯ КРОМКА
+   SOFT EDGE — ЧИТАЕМАЯ КРОМКА
    ========================================= */
 
 .side-menu::after {
   content: "";
   position: absolute;
   top: 0;
-  left: -24px;
-  width: 24px;
+  left: -28px;
+  width: 28px;
   height: 100%;
   pointer-events: none;
 
   background: linear-gradient(
     to left,
-    rgba(18,26,44,0.55),
-    rgba(18,26,44,0.25),
-    rgba(18,26,44,0)
+    rgba(20,30,52,0.65),
+    rgba(20,30,52,0.35),
+    rgba(20,30,52,0)
   );
 }
 
@@ -126,6 +127,12 @@
   font-size: 1.12rem;
   margin: 16px 0;
   letter-spacing: .08em;
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.side-menu a:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
 }
 
 /* =========================================
@@ -138,6 +145,11 @@
     max-width: 70vw;
     justify-content: flex-start;
     padding-top: 22vh;
+  }
+
+  .side-menu::after {
+    left: -22px;
+    width: 22px;
   }
 }
 
