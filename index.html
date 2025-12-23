@@ -8,8 +8,7 @@
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/css/site.css">
-<link rel="stylesheet" href="/assets/css/menu.css?v=20271223">
-
+<link rel="stylesheet" href="/assets/css/menu.css">
 
 <style>
 :root {
@@ -43,22 +42,6 @@ body {
   color: var(--text-main);
 
   padding-top: 7vh;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(255,255,255,0.12) 0%,
-      rgba(255,255,255,0.04) 22%,
-      rgba(0,0,0,0) 70%
-    ),
-    radial-gradient(
-      circle at 50% 0%,
-      #1a2f4d 0%,
-      #091626 55%,
-      #04080f 100%
-    );
-
-  position: relative;
 }
 
 /* ===== LOGO ===== */
@@ -234,7 +217,6 @@ h1 {
   </div>
 </div>
 
-<!-- TIMER SCRIPT -->
 <script>
 function updateTimer() {
   const target = new Date("2027-10-01T00:00:00").getTime();
@@ -256,7 +238,6 @@ setInterval(updateTimer, 1000);
 updateTimer();
 </script>
 
-<!-- ЕДИНЫЙ СКРИПТ МЕНЮ -->
 <script src="/menu.js"></script>
 
 </body>
