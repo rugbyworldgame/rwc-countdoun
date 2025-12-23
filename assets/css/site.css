@@ -1,39 +1,48 @@
 /* =========================================
-   SITE BACKGROUND v5 — SAFE PREMIUM
+   SITE BACKGROUND — NIGHT STADIUM
+   Final, safe, premium
    ========================================= */
 
 html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #070b14;
+  background-color: #050812;
   color-scheme: dark;
 }
 
 /* -----------------------------------------
-   ПРЕМИАЛЬНЫЙ ФОН (БЕЗ ПСЕВДОСЛОЁВ)
+   СЦЕНА СТАДИОНА
    ----------------------------------------- */
 
 body {
   background:
-    /* Виньетка по краям — кадр */
+    /* КАДРОВАНИЕ — затемнённые края */
     radial-gradient(
       ellipse at center,
       rgba(0,0,0,0) 0%,
-      rgba(0,0,0,0.22) 60%,
-      rgba(0,0,0,0.55) 100%
+      rgba(0,0,0,0.28) 60%,
+      rgba(0,0,0,0.65) 100%
     ),
 
-    /* Центральный свет */
+    /* ПРОЖЕКТОРЫ СВЕРХУ */
     radial-gradient(
-      circle at 50% 0%,
-      rgba(90,120,220,0.30),
-      rgba(20,36,80,0.84) 42%,
-      rgba(6,10,22,0.99) 80%
+      ellipse at 50% -20%,
+      rgba(120,150,255,0.35),
+      rgba(60,90,180,0.25) 35%,
+      rgba(18,30,72,0.55) 55%,
+      rgba(6,10,22,0.95) 80%
     ),
 
-    #050812;
+    /* ОСНОВНАЯ НОЧНАЯ ГЛУБИНА */
+    linear-gradient(
+      180deg,
+      #0b1633 0%,
+      #070e1f 40%,
+      #050812 100%
+    );
 
+  min-height: 100vh;
   position: relative;
   overflow-x: hidden;
 }
