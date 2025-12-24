@@ -1,4 +1,46 @@
 /* ================================
+   MENU BUTTON (BURGER)
+   ================================ */
+
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  right: 18px; /* ВАЖНО — справа */
+  width: 36px;
+  height: 26px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+  z-index: 3001; /* ВЫШЕ overlay и menu */
+}
+
+.menu-btn span {
+  height: 3px;
+  background: #f5f8ff;
+  border-radius: 3px;
+  transition: transform .3s ease, opacity .2s ease;
+}
+
+.menu-btn.active span:nth-child(1) {
+  transform: translateY(11px) rotate(45deg);
+}
+
+.menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.active span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg);
+}
+
+/* ================================
    MENU OVERLAY (BACKGROUND BLUR)
    ================================ */
 
@@ -74,7 +116,6 @@
   opacity: 0.92;
 }
 
-/* divider */
 .side-menu a::after {
   content: "";
   position: absolute;
@@ -91,7 +132,7 @@
 }
 
 /* ================================
-   CLOSE BUTTON
+   CLOSE BUTTON (X)
    ================================ */
 
 .menu-close {
@@ -104,16 +145,12 @@
 }
 
 /* ================================
-   BODY LOCK
+   BODY LOCK + PAGE BLUR
    ================================ */
 
 body.menu-open {
   overflow: hidden;
 }
-
-/* ================================
-   PAGE BLUR WHEN MENU OPEN
-   ================================ */
 
 body.menu-open main,
 body.menu-open .page {
@@ -121,8 +158,19 @@ body.menu-open .page {
   transition: filter .35s ease;
 }
 
-/* по умолчанию */
 main,
 .page {
   transition: filter .35s ease;
+}
+
+/* ================================
+   TAP HIGHLIGHT OFF
+   ================================ */
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  outline: none;
 }
