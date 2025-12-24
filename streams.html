@@ -11,36 +11,42 @@
 <link rel="stylesheet" href="/assets/css/menu.css">
 
 <style>
-/* ===== LIVE STATUS (ГЛАВНЫЙ ЯКОРЬ) ===== */
+/* ===== PAGE CORE ===== */
+.stream-page{
+  max-width:960px;
+  margin:0 auto;
+  padding:16px 14px 0;
+  text-align:center;
+}
+
+/* ===== LIVE STATUS ===== */
 .stream-status{
   display:inline-flex;
   align-items:center;
   gap:10px;
-  margin:18px auto 14px;
-  padding:8px 18px;
+  margin:10px auto 12px;
+  padding:7px 16px;
   border-radius:999px;
-  background:rgba(20,80,40,.35);
+  background:rgba(20,80,40,.32);
   color:#9dffb3;
-  font-size:.78rem;
-  letter-spacing:.12em;
+  font-size:.72rem;
+  letter-spacing:.14em;
   font-weight:600;
 }
 .stream-status .dot{
-  width:9px;height:9px;border-radius:50%;
+  width:8px;height:8px;border-radius:50%;
   background:#32ff7e;
-  box-shadow:0 0 8px rgba(50,255,126,.8);
+  box-shadow:0 0 6px rgba(50,255,126,.8);
 }
 
 /* ===== VIDEO ===== */
 .video-wrapper{
   width:100%;
-  max-width:900px;
-  margin:6px auto 0;
   aspect-ratio:16/9;
-  border-radius:22px;
+  border-radius:18px;
   overflow:hidden;
   background:#000;
-  box-shadow:0 0 30px rgba(0,0,0,.45);
+  box-shadow:0 0 26px rgba(0,0,0,.45);
 }
 .video-wrapper iframe{
   width:100%;
@@ -48,49 +54,32 @@
   border:0;
 }
 
-/* ===== SERVICE NOTE ===== */
-.stream-service{
-  margin:10px auto 26px;
-  padding:10px 16px;
-  max-width:680px;
-  background:rgba(0,0,0,.28);
-  backdrop-filter:blur(6px);
-  border-radius:14px;
-  font-size:.8rem;
-  color:rgba(223,232,255,.7);
-}
-
-/* ===== MATCH ONLY (ОТДЕЛЬНЫЙ БЛОК) ===== */
+/* ===== MATCH INFO ===== */
 .match-pill{
-  margin:0 auto 18px;
+  margin:12px auto 8px;
   max-width:560px;
-  padding:14px 20px;
+  padding:12px 18px;
   border-radius:999px;
   background:rgba(255,255,255,.06);
-  backdrop-filter:blur(14px);
-  border:1px solid rgba(223,232,255,.25);
-  font-size:.95rem;
-  letter-spacing:.08em;
-}
-
-/* ===== TEXT BELOW ===== */
-.match-actions{
-  text-align:center;
-  font-size:1.05rem;
-  line-height:1.55;
-  margin-bottom:40px;
-}
-.match-actions .hint{
-  opacity:.65;
+  border:1px solid rgba(223,232,255,.22);
   font-size:.9rem;
+  letter-spacing:.06em;
 }
 
-/* ===== FOOTER DISCLAIMER ===== */
+/* ===== HINT ===== */
+.stream-hint{
+  margin:6px auto 14px;
+  font-size:.82rem;
+  color:rgba(223,232,255,.65);
+}
+
+/* ===== FOOTER ===== */
 footer{
-  padding:26px 16px 32px;
+  margin-top:18px;
+  padding:18px 12px 28px;
   text-align:center;
-  font-size:.72rem;
-  line-height:1.4;
+  font-size:.7rem;
+  line-height:1.45;
   color:rgba(223,232,255,.45);
 }
 </style>
@@ -98,44 +87,37 @@ footer{
 
 <body>
 
-<!-- MENU -->
 <div id="menu-container"></div>
 
 <main class="page">
-<section class="container" style="text-align:center;">
+  <div class="stream-page">
 
-  <!-- LIVE СРАЗУ ВВЕРХУ -->
-  <div class="stream-status">
-    <span class="dot"></span>
-    LIVE · 23:00–01:00 МСК
+    <!-- LIVE -->
+    <div class="stream-status">
+      <span class="dot"></span>
+      LIVE · 23:00–01:00 МСК
+    </div>
+
+    <!-- VIDEO -->
+    <div class="video-wrapper">
+      <iframe
+        src="https://vk.com/video_ext.php?oid=-15550428&id=456245398&autoplay=1"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- MATCH -->
+    <div class="match-pill">
+      «Бордо» — «Тулон» · 21.12 · 23:00 МСК
+    </div>
+
+    <!-- HINT -->
+    <div class="stream-hint">
+      Если видео не появилось сразу — обновите страницу 1–2 раза.
+    </div>
+
   </div>
-
-  <div class="video-wrapper">
-    <iframe
-      src="https://vk.com/video_ext.php?oid=-15550428&id=456245398&autoplay=1"
-      allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
-      allowfullscreen>
-    </iframe>
-  </div>
-
-  <div class="stream-service">
-    ℹ️ Если трансляция не запускается, обновите страницу 1–2 раза и подождите несколько секунд.
-  </div>
-
-  <!-- ТОЛЬКО МАТЧ -->
-  <div class="match-pill">
-    «Бордо» — «Тулон» · 21.12 · 23:00 МСК
-  </div>
-
-  <!-- ДЕЙСТВИЕ -->
-  <div class="match-actions">
-    Смотреть регби онлайн<br>
-    <span class="hint">
-      Если видео не появилось сразу — обновите страницу.
-    </span>
-  </div>
-
-</section>
 </main>
 
 <footer>
