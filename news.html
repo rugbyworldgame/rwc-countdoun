@@ -2,105 +2,84 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Новости — Кубок мира по регби 2027</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- ЕДИНАЯ СЦЕНА САЙТА -->
+<title>Новости — Кубок мира по регби 2027</title>
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/menu.css">
-
-<style>
-/* ===== ЛОКАЛЬНЫЙ КОНТЕНТ (НЕ СЦЕНА) ===== */
-
-.page-content{
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 32px 16px 64px;
-  text-align: center;
-}
-
-.dev-card{
-  margin-top: 26px;
-  background: rgba(255,255,255,0.06);
-  border-radius: 22px;
-  padding: 26px;
-  box-shadow: 0 0 22px rgba(0,0,0,0.35);
-}
-
-.badge{
-  display: inline-block;
-  padding: 6px 22px;
-  border-radius: 16px;
-  border: 1px solid rgba(223,232,255,0.35);
-  font-size: 0.8rem;
-  letter-spacing: 0.16em;
-  margin-bottom: 16px;
-  opacity: 0.85;
-}
-
-.dev-text{
-  font-size: 1.05rem;
-  line-height: 1.55;
-  margin-bottom: 16px;
-}
-</style>
 </head>
 
 <body>
 
-<!-- МЕНЮ -->
 <div id="menu-container"></div>
 
 <main class="page">
-  <section class="container">
 
-    <!-- HERO / ЛОГО (ЕДИНЫЙ СТИЛЬ) -->
-    <header class="hero">
-      <div class="logo">
-        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="currentColor" stroke-width="1.6" fill="none">
-            <path d="M32 30 Q28 58 42 82"/>
-            <path d="M68 30 Q72 58 58 82"/>
-            <path d="M32 30 Q50 16 68 30"/>
-            <path d="M45 86 Q50 90 55 86"/>
-            <path d="M40 94 H60"/>
-          </g>
-        </svg>
+  <!-- HERO SCENE -->
+  <section class="scene scene-hero">
+    <div class="container">
 
-        <div class="logo-caption">
-          RWC 2027<br>AUSTRALIA 2027
-        </div>
-      </div>
+      <header class="hero">
 
-      <h1 class="h1">Новости турнира</h1>
-      <p class="subtitle">
-        Здесь будет опубликована официальная лента новостей Кубка мира по регби 2027.
-      </p>
-    </header>
+        <div class="logo">
+          <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="currentColor" stroke-width="1.6" fill="none">
+              <path d="M32 30 Q28 58 42 82"/>
+              <path d="M68 30 Q72 58 58 82"/>
+              <path d="M32 30 Q50 16 68 30"/>
+              <path d="M45 86 Q50 90 55 86"/>
+              <path d="M40 94 H60"/>
+            </g>
+          </svg>
 
-    <!-- КОНТЕНТ -->
-    <div class="page-content">
-
-      <div class="dev-card">
-        <div class="badge">РАЗДЕЛ В РАЗРАБОТКЕ</div>
-
-        <div class="dev-text">
-          Мы готовим удобный и современный раздел новостей:  
-          объявления, кадровые решения, новости сборных, аналитика и многое другое.
+          <div class="logo-caption">
+            RWC 2027<br>AUSTRALIA 2027
+          </div>
         </div>
 
-        <div class="dev-text" style="opacity:0.7;">
-          Скоро здесь появится первый контент — следите за обновлениями.
-        </div>
+        <h1 class="h1">Новости турнира</h1>
+
+        <p class="subtitle" style="max-width:680px;margin:0 auto;">
+          Официальная лента новостей Кубка мира по регби 2027:
+          объявления, события, сборные и ключевые решения турнира.
+        </p>
+
+      </header>
+
+    </div>
+  </section>
+
+  <!-- CONTENT SCENE -->
+  <section class="scene">
+    <div class="container">
+
+      <div class="groups-grid">
+
+        <article class="group-card">
+          <div class="group-title">РАЗДЕЛ В РАЗРАБОТКЕ</div>
+          <div class="group-divider"></div>
+
+          <div class="group-team">
+            Мы готовим современный и удобный раздел новостей:
+            официальные заявления, кадровые решения,
+            новости сборных, аналитика и материалы турнира.
+          </div>
+
+          <div class="group-team" style="opacity:.7;margin-top:12px;">
+            Первый контент появится в ближайшее время.
+            Следите за обновлениями.
+          </div>
+        </article>
+
       </div>
 
     </div>
-
   </section>
+
 </main>
 
 <script src="/menu.js"></script>
-
 </body>
 </html>
