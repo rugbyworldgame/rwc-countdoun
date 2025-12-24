@@ -1,156 +1,194 @@
 /* =========================================
-   ROOT
+   rugby2027.ru — CLEAN / PREMIUM BASE
+   Source of truth for cards + layout.
+   No hover, no glow, no animations.
    ========================================= */
 
-:root {
+:root{
   --bg-deep: #050812;
   --bg-main: #0b1633;
 
   --text-main: #dfe8ff;
-  --text-sub: rgba(223,232,255,0.55);
+  --text-sub: rgba(223,232,255,0.60);
 
-  --card-bg: rgba(8,14,32,0.55);
-  --card-border: rgba(255,255,255,0.10);
-  --card-border-hover: rgba(255,255,255,0.22);
+  --surface: rgba(12, 18, 40, 0.55);
+  --line: rgba(255,255,255,0.10);
 
   --divider: rgba(210,220,255,0.55);
+
+  --page-max: 1080px;
+  --page-pad: 16px;
+
+  --radius-card: 22px;
+  --radius-soft: 28px;
+
+  --gap: 18px;
 }
 
+/* ===== BASE RESET ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
-/* =========================================
-   BASE
-   ========================================= */
+html, body { height: 100%; }
 
-html,
-body {
+body{
   margin: 0;
-  padding: 0;
+  font-family: Arial, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text-main);
   background-color: var(--bg-deep);
   color-scheme: dark;
-}
 
-body {
-  min-height: 100vh;
-  overflow-x: hidden;
+  /* чисто, без "костылей" */
+  overflow-x: clip;
 
   background:
-    radial-gradient(
-      ellipse at 50% 0%,
-      rgba(120,150,255,0.28),
-      rgba(40,70,160,0.18) 35%,
-      rgba(12,22,55,0.85) 70%,
+    radial-gradient(ellipse at 50% 0%,
+      rgba(120,150,255,0.22),
+      rgba(40,70,160,0.12) 35%,
+      rgba(12,22,55,0.70) 70%,
       #050812 100%
     ),
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       #0b1633 0%,
       #070e1f 45%,
       #050812 100%
     );
 }
 
-
-/* =========================================
-   GROUP CARDS — ОСНОВА
-   ========================================= */
-
-.group-card {
-  position: relative;
-
-  width: 100%;
-  max-width: 100%;
-
-  padding: 22px 24px 26px;
-
-  background: var(--card-bg);
-
-  border-radius: 28px;
-
-  box-shadow:
-    inset 0 0 0 1px var(--card-border),
-    0 18px 44px rgba(0,0,0,0.65);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+/* ===== LAYOUT ===== */
+.page{
+  padding: 24px 0 72px;
 }
 
+.container{
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+}
 
-/* =========================================
-   ТЕКСТ В КАРТОЧКАХ
-   ========================================= */
+/* ===== HERO ===== */
+.hero{
+  text-align: center;
+  padding-top: 28px;
+  padding-bottom: 26px;
+}
 
-.group-title {
-  margin-bottom: 12px;
+.logo{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: var(--text-main);
+}
 
+.logo svg{
+  width: 84px;
+  height: auto;
+  display: block;
+}
+
+.logo-caption{
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.h1{
+  margin: 0 0 14px 0;
+  font-size: clamp(1.2rem, 3.2vw, 1.7rem);
+  font-weight: 600;
+}
+
+.timer{
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.timer-line{
+  font-size: clamp(2.0rem, 6vw, 3.0rem);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.subtitle{
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: var(--text-sub);
+}
+
+/* ===== GROUPS SECTION ===== */
+.groups{
+  margin-top: 34px;
+}
+
+.h2{
+  margin: 0 0 14px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: rgba(223,232,255,0.88);
+  letter-spacing: .04em;
+}
+
+/* Сетка управляется здесь, а не в HTML */
+.groups-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+}
+
+/* ===== CARD — GEOMETRY + CLEAN PREMIUM (без эффектов) ===== */
+.group-card{
+  width: 100%;
+  margin: 0;
+
+  padding: 18px 18px 20px;
+  border-radius: var(--radius-card);
+
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* ===== TEXT IN CARD ===== */
+.group-title{
+  margin: 0 0 10px 0;
   font-size: 0.75rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-
   color: rgba(205,220,255,0.85);
 }
 
-.group-divider {
+.group-divider{
   height: 1px;
   width: 100%;
-  margin: 10px 0 16px;
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--divider),
-    transparent
-  );
+  margin: 10px 0 14px;
+  background: linear-gradient(90deg, transparent, var(--divider), transparent);
+  opacity: 0.9;
 }
 
-.group-team {
+.group-team{
   font-size: 1rem;
   line-height: 1.55;
-
   color: rgba(245,248,255,0.95);
 }
 
-
-/* =========================================
-   HOVER — ТОЛЬКО DESKTOP
-   ========================================= */
-
-@media (hover: hover) and (pointer: fine) {
-  .group-card:hover {
-    transform: translateY(-6px);
-
-    box-shadow:
-      inset 0 0 0 1px var(--card-border-hover),
-      0 26px 64px rgba(0,0,0,0.85);
-  }
+/* ===== RESPONSIVE — CONTROLLED AIR ===== */
+@media (max-width: 960px){
+  .groups-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
+@media (max-width: 640px){
+  :root{ --page-pad: 14px; }
 
-/* =========================================
-   МОБИЛЬНАЯ ГЕОМЕТРИЯ (КЛЮЧЕВОЙ ФИКС)
-   ========================================= */
+  .groups-grid{ grid-template-columns: 1fr; }
 
-@media (max-width: 640px) {
-
-  /* центрируем карточки, убираем прижатие */
-  .groups-grid {
-    justify-items: center;
-  }
-
-  .group-card {
-    max-width: 92%;
-    border-radius: 26px;
-  }
-}
-
-
-/* =========================================
-   СНИЖЕНИЕ ДВИЖЕНИЯ
-   ========================================= */
-
-@media (prefers-reduced-motion: reduce) {
-  .group-card {
-    transition: none;
+  /* Главное: карточка не липнет к краю,
+     это достигается padding контейнера, а не "92%" костылём */
+  .group-card{
+    border-radius: 20px;
   }
 }
