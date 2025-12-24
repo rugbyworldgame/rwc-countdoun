@@ -11,7 +11,8 @@
 <link rel="stylesheet" href="/assets/css/menu.css">
 
 <style>
-/* ===== PAGE CORE ===== */
+/* ===== CORE ===== */
+
 .stream-page{
   max-width:960px;
   margin:0 auto;
@@ -20,26 +21,31 @@
 }
 
 /* ===== LIVE STATUS ===== */
+
 .stream-status{
   display:inline-flex;
   align-items:center;
   gap:10px;
-  margin:10px auto 12px;
-  padding:7px 16px;
+  margin:10px auto 14px;
+  padding:8px 18px;
   border-radius:999px;
   background:rgba(20,80,40,.32);
   color:#9dffb3;
-  font-size:.72rem;
+  font-size:.74rem;
   letter-spacing:.14em;
   font-weight:600;
 }
+
 .stream-status .dot{
-  width:8px;height:8px;border-radius:50%;
+  width:8px;
+  height:8px;
+  border-radius:50%;
   background:#32ff7e;
   box-shadow:0 0 6px rgba(50,255,126,.8);
 }
 
 /* ===== VIDEO ===== */
+
 .video-wrapper{
   width:100%;
   aspect-ratio:16/9;
@@ -48,34 +54,84 @@
   background:#000;
   box-shadow:0 0 26px rgba(0,0,0,.45);
 }
+
 .video-wrapper iframe{
   width:100%;
   height:100%;
   border:0;
 }
 
-/* ===== MATCH INFO ===== */
+/* ===== CURRENT MATCH ===== */
+
 .match-pill{
-  margin:12px auto 8px;
-  max-width:560px;
-  padding:12px 18px;
+  margin:14px auto 8px;
+  max-width:620px;
+  padding:12px 20px;
   border-radius:999px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(223,232,255,.22);
-  font-size:.9rem;
+  font-size:.95rem;
   letter-spacing:.06em;
 }
 
 /* ===== HINT ===== */
+
 .stream-hint{
-  margin:6px auto 14px;
+  margin:6px auto 18px;
   font-size:.82rem;
   color:rgba(223,232,255,.65);
 }
 
+/* ===== UPCOMING STREAMS ===== */
+
+.upcoming-streams{
+  max-width:900px;
+  margin:26px auto 0;
+  padding:18px 20px 20px;
+  border-radius:20px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+}
+
+.upcoming-title{
+  font-size:.68rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  color:rgba(223,232,255,.5);
+  margin-bottom:14px;
+}
+
+.upcoming-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  font-size:.92rem;
+  color:rgba(223,232,255,.9);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.upcoming-item:last-child{
+  border-bottom:none;
+}
+
+.upcoming-time{
+  opacity:.75;
+  white-space:nowrap;
+  margin-right:14px;
+  font-size:.88rem;
+}
+
+.upcoming-match{
+  flex:1;
+  text-align:left;
+}
+
 /* ===== FOOTER ===== */
+
 footer{
-  margin-top:18px;
+  margin-top:26px;
   padding:18px 12px 28px;
   text-align:center;
   font-size:.7rem;
@@ -107,7 +163,7 @@ footer{
       </iframe>
     </div>
 
-    <!-- MATCH -->
+    <!-- CURRENT MATCH -->
     <div class="match-pill">
       «Бордо» — «Тулон» · 21.12 · 23:00 МСК
     </div>
@@ -115,6 +171,26 @@ footer{
     <!-- HINT -->
     <div class="stream-hint">
       Если видео не появилось сразу — обновите страницу 1–2 раза.
+    </div>
+
+    <!-- UPCOMING -->
+    <div class="upcoming-streams">
+      <div class="upcoming-title">Ближайшие трансляции</div>
+
+      <div class="upcoming-item">
+        <div class="upcoming-time">22.12 · 21:45</div>
+        <div class="upcoming-match">«Клермон» — «Лион»</div>
+      </div>
+
+      <div class="upcoming-item">
+        <div class="upcoming-time">23.12 · 20:30</div>
+        <div class="upcoming-match">«Ла-Рошель» — «Расинг 92»</div>
+      </div>
+
+      <div class="upcoming-item">
+        <div class="upcoming-time">24.12 · 23:00</div>
+        <div class="upcoming-match">«Тулуза» — «Байон»</div>
+      </div>
     </div>
 
   </div>
