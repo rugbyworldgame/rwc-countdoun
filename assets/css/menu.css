@@ -1,6 +1,6 @@
 /* =========================================
-   MENU — CLEAN PREMIUM
-   Не влияет на layout сайта и карточки
+   MENU — PREMIUM SCENE
+   Визуально приведено к уровню карточек
    ========================================= */
 
 /* ---------- MENU BUTTON ---------- */
@@ -28,21 +28,8 @@
 .menu-btn span {
   display: block;
   height: 3px;
-  background: #f5f8ff;
+  background: rgba(245,248,255,0.9);
   border-radius: 3px;
-}
-
-/* Аккуратная трансформация без «танцев» */
-.menu-btn.active span:nth-child(1){
-  transform: translateY(11px) rotate(45deg);
-}
-
-.menu-btn.active span:nth-child(2){
-  opacity: 0;
-}
-
-.menu-btn.active span:nth-child(3){
-  transform: translateY(-11px) rotate(-45deg);
 }
 
 /* ---------- OVERLAY ---------- */
@@ -51,12 +38,16 @@
   position: fixed;
   inset: 0;
 
-  background: rgba(0,0,0,0.42);
+  /* та же сцена, что и сайт */
+  background: rgba(5,8,18,0.55);
+
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 
   opacity: 0;
   pointer-events: none;
 
-  transition: opacity .25s ease;
+  transition: opacity .3s ease;
   z-index: 2000;
 }
 
@@ -76,23 +67,31 @@
   width: 320px;
   max-width: 80vw;
 
-  background: #0f172a;
+  /* СЦЕНА, А НЕ ПЛОСКИЙ ЦВЕТ */
+  background:
+    radial-gradient(
+      ellipse at 20% 0%,
+      rgba(120,150,255,0.18),
+      rgba(40,70,160,0.12) 35%,
+      rgba(12,22,55,0.75) 70%,
+      rgba(5,8,18,0.95) 100%
+    );
+
   border-left: 1px solid rgba(255,255,255,0.08);
 
-  /* Убраны агрессивные тени — оставлен спокойный премиум */
-  box-shadow: -8px 0 24px rgba(0,0,0,0.55);
+  box-shadow:
+    -12px 0 40px rgba(0,0,0,0.55);
 
   transform: translateX(100%);
-  transition: transform .32s ease;
+  transition: transform .36s ease;
 
   z-index: 2500;
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
 
-  overflow-y: auto;
+  padding: 0 28px;
 }
 
 .side-menu.active {
@@ -102,12 +101,20 @@
 /* ---------- LINKS ---------- */
 
 .side-menu a {
-  color: #f5f8ff;
+  color: rgba(245,248,255,0.92);
   text-decoration: none;
 
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+
   margin: 14px 0;
-  letter-spacing: .06em;
+  letter-spacing: 0.08em;
+
+  transition: opacity .2s ease;
+}
+
+.side-menu a:hover {
+  opacity: 0.7;
 }
 
 /* ---------- MOBILE ---------- */
@@ -116,9 +123,8 @@
   .side-menu {
     width: 260px;
     max-width: 70vw;
-
-    justify-content: flex-start;
     padding-top: 22vh;
+    justify-content: flex-start;
   }
 }
 
