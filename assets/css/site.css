@@ -116,3 +116,16 @@ body {
   }
 }
 
+/* ===== MOBILE CARD GEOMETRY FIX ===== */
+@media (max-width: 640px) {
+  .group-card {
+    width: 92%;
+    max-width: 360px;
+    margin: 0 auto;
+
+    border-radius: 22px;
+
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
