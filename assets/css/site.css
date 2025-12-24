@@ -129,3 +129,16 @@ body {
     padding-right: 22px;
   }
 }
+/* ===== MOBILE CARD EDGE BALANCE (FINAL) ===== */
+@media (max-width: 640px) {
+  .group-card {
+    width: calc(100% - 32px);
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 24px;
+
+    background-position: center center;
+    background-size: 140% 140%;
+  }
+}
