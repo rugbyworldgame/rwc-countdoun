@@ -1,7 +1,5 @@
 /* =========================================
    rugby2027.ru — CLEAN / PREMIUM BASE
-   Source of truth for cards + layout.
-   No hover, no glow, no animations.
    ========================================= */
 
 :root{
@@ -20,12 +18,11 @@
   --page-pad: 16px;
 
   --radius-card: 22px;
-  --radius-soft: 28px;
-
   --gap: 18px;
 }
 
-/* ===== BASE RESET ===== */
+/* ===== BASE ===== */
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -38,8 +35,6 @@ body{
   color: var(--text-main);
   background-color: var(--bg-deep);
   color-scheme: dark;
-
-  /* чисто, без "костылей" */
   overflow-x: clip;
 
   background:
@@ -57,6 +52,7 @@ body{
 }
 
 /* ===== LAYOUT ===== */
+
 .page{
   padding: 24px 0 72px;
 }
@@ -68,6 +64,7 @@ body{
 }
 
 /* ===== HERO ===== */
+
 .hero{
   text-align: center;
   padding-top: 28px;
@@ -80,13 +77,10 @@ body{
   align-items: center;
   gap: 8px;
   margin-bottom: 18px;
-  color: var(--text-main);
 }
 
 .logo svg{
   width: 84px;
-  height: auto;
-  display: block;
 }
 
 .logo-caption{
@@ -94,11 +88,10 @@ body{
   color: var(--text-sub);
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  line-height: 1.25;
 }
 
 .h1{
-  margin: 0 0 14px 0;
+  margin: 0 0 14px;
   font-size: clamp(1.2rem, 3.2vw, 1.7rem);
   font-weight: 600;
 }
@@ -110,52 +103,42 @@ body{
 }
 
 .timer-line{
-  font-size: clamp(2.0rem, 6vw, 3.0rem);
-  line-height: 1.15;
+  font-size: clamp(2rem, 6vw, 3rem);
   font-weight: 700;
 }
 
 .subtitle{
-  margin-top: 4px;
   font-size: 0.85rem;
   color: var(--text-sub);
 }
 
-/* ===== GROUPS SECTION ===== */
-.groups{
-  margin-top: 34px;
+/* ===== SECTION LABEL ===== */
+
+.section-label{
+  margin: 22px 0 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: rgba(223,232,255,0.45);
 }
 
-.h2{
-  margin: 0 0 14px 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: rgba(223,232,255,0.88);
-  letter-spacing: .04em;
-}
+/* ===== GROUPS ===== */
 
-/* Сетка управляется здесь, а не в HTML */
 .groups-grid{
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0,1fr));
   gap: var(--gap);
 }
 
-/* ===== CARD — GEOMETRY + CLEAN PREMIUM (без эффектов) ===== */
 .group-card{
-  width: 100%;
-  margin: 0;
-
   padding: 18px 18px 20px;
   border-radius: var(--radius-card);
-
   background: var(--surface);
   border: 1px solid var(--line);
 }
 
-/* ===== TEXT IN CARD ===== */
 .group-title{
-  margin: 0 0 10px 0;
+  margin-bottom: 10px;
   font-size: 0.75rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -164,31 +147,21 @@ body{
 
 .group-divider{
   height: 1px;
-  width: 100%;
   margin: 10px 0 14px;
   background: linear-gradient(90deg, transparent, var(--divider), transparent);
-  opacity: 0.9;
 }
 
 .group-team{
   font-size: 1rem;
   line-height: 1.55;
-  color: rgba(245,248,255,0.95);
 }
 
-/* ===== RESPONSIVE — CONTROLLED AIR ===== */
+/* ===== RESPONSIVE ===== */
+
 @media (max-width: 960px){
-  .groups-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .groups-grid{ grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px){
-  :root{ --page-pad: 14px; }
-
   .groups-grid{ grid-template-columns: 1fr; }
-
-  /* Главное: карточка не липнет к краю,
-     это достигается padding контейнера, а не "92%" костылём */
-  .group-card{
-    border-radius: 20px;
-  }
 }
