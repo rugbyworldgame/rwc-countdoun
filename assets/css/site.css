@@ -1,5 +1,5 @@
 /* =========================================
-   rugby2027.ru — PREMIUM CORE / v1
+   rugby2027.ru — PREMIUM CORE / v1.1
    ========================================= */
 
 :root{
@@ -75,7 +75,7 @@ body{
 
 .hero{
   text-align:center;
-  padding:36px 0 44px;
+  padding:36px 0 40px; /* было 44px — чуть плотнее, без потери торжественности */
 }
 
 .logo{
@@ -106,25 +106,26 @@ body{
 
 .timer{
   display:grid;
-  gap:10px;
+  gap:8px; /* было 10px — мягче */
   justify-items:center;
 }
 
 .timer-line{
-  font-size:clamp(2.2rem,6vw,3.2rem);
-  font-weight:700;
-  letter-spacing:.04em;
+  font-size:clamp(2.1rem,5.6vw,3.05rem); /* чуть спокойнее */
+  font-weight:650; /* было 700 */
+  letter-spacing:.02em;
+  color:rgba(230,236,255,.88); /* приглушение без потери акцента */
 }
 
 .subtitle{
-  font-size:.8rem;
+  font-size:.78rem;
   color:var(--text-sub);
 }
 
 /* ===== SECTION HEADER ===== */
 
 .section-label{
-  margin:34px 0 8px;
+  margin:22px 0 8px; /* было 34px — группы ближе */
   font-size:.68rem;
   letter-spacing:.38em;
   text-transform:uppercase;
@@ -137,7 +138,7 @@ body{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:var(--gap);
-  margin-top:18px;
+  margin-top:14px; /* было 18px */
 }
 
 .group-card{
@@ -159,7 +160,7 @@ body{
     background .45s ease;
 }
 
-/* ===== CARD HOVER (КЛЮЧ) ===== */
+/* ===== CARD HOVER ===== */
 
 .group-card::before{
   content:"";
